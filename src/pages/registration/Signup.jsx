@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useData } from "../../context/data/myState";
+import { useData } from "../../context/data/MyState";
 import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, firebaseDB } from "../../firebase/FirebaseConfig";
@@ -30,22 +30,25 @@ function Signup() {
       return toast.error("All fields are required");
     }
 
-    try{
-      const users = await createUserWithEmailAndPassword(auth, form.email, form.password);
+    try {
+      const users = await createUserWithEmailAndPassword(
+        auth,
+        form.email,
+        form.password
+      );
 
-      //Storing Data into firebase Database- - - -- - - 
+      //Storing Data into firebase Database- - - -- - -
       const user = {
         name: form.name,
         uid: users.user.uid,
         email: users.user.email,
         signedupAt: new Date().toISOString(),
-      }
+      };
       const userRef = collection(firebaseDB, "users");
       await addDoc(userRef, user);
-      setForm({name: "", email: "", password: ""});
-      toast.success("Register Successfully!")
-    } 
-    catch (error) {
+      setForm({ name: "", email: "", password: "" });
+      toast.success("Register Successfully!");
+    } catch (error) {
       toast.error("Registeration Failed...");
     }
   }
@@ -56,7 +59,6 @@ function Signup() {
         className="bg-gray-800 p-8 rounded-xl shadow-md w-96"
         onSubmit={handleSubmit}
       >
-
         <h2 className="text-2xl font-bold mb-6 text-center text-white">
           Register
         </h2>

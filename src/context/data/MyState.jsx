@@ -16,7 +16,7 @@ import {
 import { firebaseDB } from "../../firebase/FirebaseConfig.jsx";
 import { toast } from "react-toastify";
 
-function myState({ children }) {
+function MyState({ children }) {
   // For toggling dark & light mode...
   const [mode, setMode] = useState("light");
   const toggleMode = () => {
@@ -223,4 +223,4 @@ export function useData() {
   return useContext(MyContext);
 }
 
-export default myState;
+export default MyState;

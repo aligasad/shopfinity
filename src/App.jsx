@@ -9,7 +9,7 @@ import Order from "./pages/order/Order.jsx";
 import Cart from "./pages/cart/Cart.jsx";
 import Dashboard from "./pages/admin/dashboard/Dashboard.jsx";
 import NoPage from "./pages/nopage/NoPage.jsx";
-import MyState from "./context/data/myState.jsx";
+import MyState from "./context/data/MyState.jsx";
 import Login from "./pages/registration/Login.jsx";
 import Signup from "./pages/registration/Signup.jsx";
 import ProductInfo from "./pages/productInfo/ProductInfo.jsx";
@@ -52,7 +52,7 @@ function App() {
             <ProtectedRouteForAdmin>
               <Dashboard />
             </ProtectedRouteForAdmin>
-          )
+          ),
         },
         {
           path: "/login",
@@ -72,7 +72,7 @@ function App() {
             <ProtectedRouteForAdmin>
               <AddProduct />
             </ProtectedRouteForAdmin>
-          )
+          ),
         },
         {
           path: "/updateproduct",
@@ -80,7 +80,7 @@ function App() {
             <ProtectedRouteForAdmin>
               <UpdateProduct />
             </ProtectedRouteForAdmin>
-          )
+          ),
         },
         {
           path: "/*",
@@ -116,6 +116,6 @@ const ProtectedRouteForAdmin = ({ children }) => {
   ) {
     return children;
   } else {
-    return <Navigate to={'/login'}/>
+    return <Navigate to={"/login"} />;
   }
 };

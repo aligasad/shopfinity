@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useData } from "../../context/data/myState";
+import { useData } from "../../context/data/MyState";
 
 function Testimonial() {
   const context = useData();
@@ -33,7 +33,10 @@ function Testimonial() {
                   style={{ color: mode === "dark" ? "white" : "" }}
                   className="leading-relaxed"
                 >
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto libero, reiciendis alias sapiente eius atque quia laborum, sit ex laboriosam eveniet ea. Recusandae illum ipsam consequatur officia saepe, dolorum omnis!
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Iusto libero, reiciendis alias sapiente eius atque quia
+                  laborum, sit ex laboriosam eveniet ea. Recusandae illum ipsam
+                  consequatur officia saepe, dolorum omnis!
                 </p>
                 <span className="inline-block h-1 w-10 rounded bg-pink-500 mt-6 mb-4" />
                 <h2
@@ -61,7 +64,10 @@ function Testimonial() {
                   style={{ color: mode === "dark" ? "white" : "" }}
                   className="leading-relaxed"
                 >
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque, minus. Rerum voluptas hic mollitia asperiores quo, nemo amet, quam laboriosam voluptatum repellat ipsum sed beatae. Vitae animi natus ex ipsum?
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                  Itaque, minus. Rerum voluptas hic mollitia asperiores quo,
+                  nemo amet, quam laboriosam voluptatum repellat ipsum sed
+                  beatae. Vitae animi natus ex ipsum?
                 </p>
                 <span className="inline-block h-1 w-10 rounded bg-pink-500 mt-6 mb-4" />
                 <h2
@@ -89,7 +95,10 @@ function Testimonial() {
                   style={{ color: mode === "dark" ? "white" : "" }}
                   className="leading-relaxed"
                 >
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error, minima dignissimos hic laboriosam amet quis voluptas voluptates iure ducimus tempora placeat sit facere laudantium sapiente qui possimus ullam necessitatibus ea.
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Error, minima dignissimos hic laboriosam amet quis voluptas
+                  voluptates iure ducimus tempora placeat sit facere laudantium
+                  sapiente qui possimus ullam necessitatibus ea.
                 </p>
                 <span className="inline-block h-1 w-10 rounded bg-pink-500 mt-6 mb-4" />
                 <h2

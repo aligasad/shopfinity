@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import myContext from "../../context/data/myContext";
-import { useData } from "../../context/data/myState";
+import { useData } from "../../context/data/MyState";
 import Modal from "../../components/modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { RiDeleteBin6Fill } from "react-icons/ri";
@@ -112,7 +111,6 @@ function Cart() {
       theme: {
         color: "#FF9900", // Amazon's brand color
         hide_topbar: false,
-        
       },
     };
 

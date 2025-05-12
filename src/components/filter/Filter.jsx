@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useData } from "../../context/data/myState";
+import { useData } from "../../context/data/MyState";
 import { FiSearch } from "react-icons/fi";
 
 function Filter() {
@@ -12,7 +12,7 @@ function Filter() {
     setFilterType,
     filterPrice,
     setFilterPrice,
-    product
+    product,
   } = context;
 
   return (
@@ -63,10 +63,12 @@ function Filter() {
               >
                 <option value="jacket">Jacket</option>
                 {product.map((item, index) => {
-                    // console.log("CHECK OPTIONS",item.category.replace(/\s+/g, '').toLowerCase());
-                    return(
-                        <option key={index} value={item.category}>{item.category}</option>
-                    )
+                  // console.log("CHECK OPTIONS",item.category.replace(/\s+/g, '').toLowerCase());
+                  return (
+                    <option key={index} value={item.category}>
+                      {item.category}
+                    </option>
+                  );
                 })}
               </select>
               <select

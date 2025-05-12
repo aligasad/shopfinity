@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { FaUserTie } from "react-icons/fa";
-import { useData } from "../../../context/data/myState";
+import { useData } from "../../../context/data/MyState";
 import DashboardTab from "./DashboardTab";
 
 function Dashboard() {

@@ -1,5 +1,5 @@
 import React from "react";
-import { useData } from "../../../context/data/myState";
+import { useData } from "../../../context/data/MyState";
 
 function UpdateProduct() {
   const context = useData(); // custom hook
@@ -21,7 +21,9 @@ function UpdateProduct() {
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
               placeholder="Product title"
               value={products.title}
-              onChange={(e) => setProducts({...products, title: e.target.value})}
+              onChange={(e) =>
+                setProducts({ ...products, title: e.target.value })
+              }
             />
           </div>
           <div>
@@ -31,7 +33,9 @@ function UpdateProduct() {
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
               placeholder="Product price"
               value={products.price}
-              onChange={(e) => setProducts({...products, price: e.target.value})}
+              onChange={(e) =>
+                setProducts({ ...products, price: e.target.value })
+              }
             />
           </div>
           <div>
@@ -41,7 +45,9 @@ function UpdateProduct() {
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
               placeholder="Product imageUrl"
               value={products.imageUrl}
-              onChange={(e) => setProducts({...products, imageUrl: e.target.value })}
+              onChange={(e) =>
+                setProducts({ ...products, imageUrl: e.target.value })
+              }
             />
           </div>
           <div>
@@ -51,7 +57,9 @@ function UpdateProduct() {
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
               placeholder="Product category"
               value={products.category}
-              onChange={(e) => setProducts({...products, category: e.target.value})}
+              onChange={(e) =>
+                setProducts({ ...products, category: e.target.value })
+              }
             />
           </div>
           <div>
@@ -62,11 +70,16 @@ function UpdateProduct() {
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
               placeholder="Product description"
               value={products.description}
-              onChange={(e) => setProducts({...products, description: e.target.value})}
+              onChange={(e) =>
+                setProducts({ ...products, description: e.target.value })
+              }
             ></textarea>
           </div>
           <div className=" flex justify-center mb-3">
-            <button onClick={updateProduct} className=" bg-yellow-500 w-full text-black font-bold  px-2 py-2 rounded-lg">
+            <button
+              onClick={updateProduct}
+              className=" bg-yellow-500 w-full text-black font-bold  px-2 py-2 rounded-lg"
+            >
               Update Product
             </button>
           </div>

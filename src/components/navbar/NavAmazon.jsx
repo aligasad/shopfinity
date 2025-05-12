@@ -1,4 +1,4 @@
-import { useData } from "../../context/data/myState";
+import { useData } from "../../context/data/MyState";
 import { BsFillCloudSunFill } from "react-icons/bs";
 import { AiOutlineHeart } from "react-icons/ai";
 import { IoSettings } from "react-icons/io5";
@@ -194,7 +194,6 @@ function Navbar() {
 
       {/* desktop  */}
       <header className="bg-[#131921] text-white w-full shadow-md">
-
         {/* Main Navbar */}
         <div className="flex items-center justify-between px-4 lg:px-8 py-2">
           {/* Left: Logo and Location */}
@@ -309,7 +308,7 @@ function Navbar() {
               </div>
             ) : (
               <div className="hidden md:flex flex-col text-white">
-                <Link to={'/login'}>
+                <Link to={"/login"}>
                   <span className="text-xs">Hello, sign in</span> <br />
                   <span className="font-bold text-sm">Account & Lists</span>
                 </Link>

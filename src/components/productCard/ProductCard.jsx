@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useData } from "../../context/data/myState";
+import { useData } from "../../context/data/MyState";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/CartSlice";
 import { toast } from "react-toastify";
@@ -11,7 +11,7 @@ function ProductCard() {
   console.log(product);
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart);
-  console.log("cartItems",cartItems);
+  console.log("cartItems", cartItems);
 
   // const addCart = (product) => {
   //   dispatch(addToCart(product));
@@ -21,7 +21,7 @@ function ProductCard() {
     const existingItem = cartItems.some((item) => {
       return item.id === product.id;
     });
-    console.log("EXISTING",existingItem);
+    console.log("EXISTING", existingItem);
     if (!existingItem) {
       dispatch(addToCart(product));
       toast.success("Item added to cart");
@@ -99,35 +99,41 @@ function ProductCard() {
               //     </div>
               //   </div>
               // </div>
-              <div key={index} className="p-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 drop-shadow-lg">
-  <div
-    className="h-full border-2 border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl bg-white dark:bg-[#2E3137]"
-    style={{
-      color: mode === "dark" ? "white" : "#232f3e",
-    }}
-  >
-    <div className="flex justify-center overflow-hidden">
-      <img
-        className="rounded-t-2xl w-full h-64 object-top object-cover hover:scale-105 transition-transform duration-300"
-        src={imageUrl}
-        alt="product"
-      />
-    </div>
+              <div
+                key={index}
+                className="p-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 drop-shadow-lg"
+              >
+                <div
+                  className="h-full border-2 border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl bg-white dark:bg-[#2E3137]"
+                  style={{
+                    color: mode === "dark" ? "white" : "#232f3e",
+                  }}
+                >
+                  <div className="flex justify-center overflow-hidden">
+                    <img
+                      className="rounded-t-2xl w-full h-64 object-top object-cover hover:scale-105 transition-transform duration-300"
+                      src={imageUrl}
+                      alt="product"
+                    />
+                  </div>
 
-    <div className="p-5 border-t border-gray-200 dark:border-gray-600">
-      <h1 className="text-lg font-bold text-white mb-2">{title.slice(0, 20)}....</h1>
-      <p className="text-lg font-semibold text-amber-600 mb-4">₹{price}</p>
+                  <div className="p-5 border-t border-gray-200 dark:border-gray-600">
+                    <h1 className="text-lg font-bold text-white mb-2">
+                      {title.slice(0, 20)}....
+                    </h1>
+                    <p className="text-lg font-semibold text-amber-600 mb-4">
+                      ₹{price}
+                    </p>
 
-      <button
-        onClick={() => addCart(item)}
-        className="w-full py-2 text-sm font-semibold rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-300"
-      >
-        Add to Cart
-      </button>
-    </div>
-  </div>
-</div>
-
+                    <button
+                      onClick={() => addCart(item)}
+                      className="w-full py-2 text-sm font-semibold rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+                    >
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
             );
           })}
         </div>
