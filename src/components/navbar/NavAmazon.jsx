@@ -31,7 +31,15 @@ function Navbar() {
     setFilterType,
     filterPrice,
     setFilterPrice,
+    address,
   } = context;
+
+  const [location, setLocation] = useState("");
+  useEffect(() => {
+    const fullAddress = address || "";
+    const shortAddress = fullAddress.split(" ").slice(0, 3).join(" ");
+    setLocation(shortAddress);
+  }, [address]); // Only re-run when address changes
 
   const [open, setOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -47,6 +55,7 @@ function Navbar() {
     setIsDropdownOpen((prev) => !prev);
     localStorage.clear("user");
     navigate("/");
+    localStorage.clear("cart");
     toast.success("Logout Successfully!");
   }
 
@@ -56,7 +65,18 @@ function Navbar() {
   // cartItems data---------------------
   const cartItems = useSelector((state) => state.cart);
 
-  //for select section--------------------------------
+  // Reset Filter function --------------------------------
+  function resetFilter() {
+    setSearchkey("");
+    setFilterPrice("");
+    setFilterType("");
+    window.scrollTo(0, 0);
+  }
+  // got to top
+  useEffect(() => {
+    // window.scrollTo(0, 0);
+    // window.scrollTo(0, window.innerHeight * 0.4);
+  }, [searchkey, filterType]);
 
   return (
     <div className="bg-white sticky top-0 z-50 ">
@@ -103,7 +123,7 @@ function Navbar() {
                   </button>
                 </div>
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-                  <div className="flow-root">
+                  <div onClick={() => setOpen(false)} className="flow-root">
                     <Link
                       to={"/"}
                       className="-m-2 block p-2 font-medium text-gray-900 "
@@ -112,7 +132,7 @@ function Navbar() {
                       Home
                     </Link>
                   </div>
-                  <div className="flow-root">
+                  <div onClick={() => setOpen(false)} className="flow-root">
                     <Link
                       to={"/allproducts"}
                       className="-m-2 block p-2 font-medium text-gray-900 "
@@ -122,9 +142,9 @@ function Navbar() {
                     </Link>
                   </div>
                   {user ? (
-                    <div className="flow-root">
+                    <div onClick={() => setOpen(false)} className="flow-root">
                       <Link
-                        to={"/order"}
+                        to={"/orders"}
                         style={{ color: mode === "dark" ? "white" : "" }}
                         className="-m-2 block p-2 font-medium text-gray-900"
                       >
@@ -136,7 +156,7 @@ function Navbar() {
                   )}
 
                   {user?.user?.email === "asadalam4291@gmail.com" ? (
-                    <div className="flow-root">
+                    <div onClick={() => setOpen(false)} className="flow-root">
                       <Link
                         to={"/dashboard"}
                         className="-m-2 block p-2 font-medium text-gray-900"
@@ -149,7 +169,7 @@ function Navbar() {
                     ""
                   )}
                   {user ? (
-                    <div className="flow-root">
+                    <div onClick={() => setOpen(false)} className="flow-root">
                       <Link
                         to={"/"}
                         onClick={handleLogout}
@@ -240,11 +260,9 @@ function Navbar() {
               Amazon
             </Link>
             <div className="hidden md:flex flex-col leading-tight text-sm">
-              <span className="text-gray-300">
-                Delivering to Lucknow 226003
-              </span>
+              <div>{location}</div>
               <button className="text-white hover:underline text-xs">
-                Update location
+                Current location
               </button>
             </div>
           </div>
@@ -254,11 +272,10 @@ function Navbar() {
             <select
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}
+              
               className="bg-gray-200 text-black text-sm p-2 w-24 rounded-l-md outline-0 "
             >
-              <option value="">
-                Select
-              </option>
+              <option value="">Select</option>
               <option value="">All</option>
               {/* {product.map((item, idx) => {
                 return <option key={idx} value={item.category.replace(/\s+/g, '').toLowerCase()}>{item.category}</option>;
@@ -267,6 +284,7 @@ function Navbar() {
               {[...new Set(product.map((item) => item.category))].map(
                 (item, idx) => (
                   <option
+                  
                     key={idx}
                     value={item.replace(/\s+/g, "").toLowerCase()}
                   >
@@ -289,7 +307,12 @@ function Navbar() {
                 color: mode === "dark" ? "white" : "",
               }}
             />
-            <button className="bg-yellow-400 px-4 rounded-r-md">🔍</button>
+            <button
+              onClick={resetFilter}
+              className="bg-yellow-400 px-4 rounded-r-md text-black"
+            >
+              Reset
+            </button>
           </div>
 
           {/* Right: Links and Icons */}
@@ -301,7 +324,20 @@ function Navbar() {
                 alt="IN"
                 className="w-5 h-4"
               />
-              <span>EN</span>
+              <select className="outline ml-1" name="" id="">
+                <option className="bg-gray-500 " value="">
+                  UP
+                </option>
+                <option className="bg-gray-500 " value="">
+                  BR
+                </option>
+                <option className="bg-gray-500 " value="">
+                  J&K
+                </option>
+                <option className="bg-gray-500 " value="">
+                  MH
+                </option>
+              </select>
             </div>
 
             {/* Account/Orders */}
@@ -409,24 +445,27 @@ function Navbar() {
             </>
           ) : (
             <Link to={"/login"}>
-              <span className="text-rose-600 font-bold hover:text-amber-500 cursor-pointer">
+              <span
+                onClick={window.scrollTo(0, 0)}
+                className="text-rose-600 font-bold hover:text-amber-500 cursor-pointer"
+              >
                 LOGIN
               </span>
             </Link>
           )}
-          <span>Fresh</span>
-          <span>MX Player</span>
-          <span>Sell</span>
-          <span>Bestsellers</span>
-          <span>Today's Deals</span>
-          <span>Mobiles</span>
-          <span>Fashion</span>
-          <span>Prime</span>
-          <span>Customer Service</span>
-          <span>New Releases</span>
-          <span>Electronics</span>
-          <span>Home & Kitchen</span>
-          <span>Amazon Pay</span>
+         <Link to={'https://www.amazon.in/alm/storefront?almBrandId=ctnow&ref_=nav_cs_fresh'}> <span>Fresh</span> </Link>
+         <Link to={'https://www.amazon.in/minitv?ref_=nav_avod_desktop_topnav'}> <span>MX Player</span> </Link>
+         <Link to={'https://www.amazon.in/b/32702023031?node=32702023031&ld=AZINSOANavDesktop_T3&ref_=nav_cs_sell_T3'}> <span>Sell</span> </Link>
+         <Link to={'https://www.amazon.in/gp/bestsellers/?ref_=nav_cs_bestsellers'}> <span>Bestsellers</span> </Link>
+         <Link to={'https://www.amazon.in/deals?ref_=nav_cs_gb'}> <span>Today's Deals</span> </Link>
+         <Link to={'https://www.amazon.in/mobile-phones/b/?ie=UTF8&node=1389401031&ref_=nav_cs_mobiles'}> <span>Mobiles</span> </Link>
+         <Link to={'https://www.amazon.in/gp/browse.html?node=6648217031&ref_=nav_cs_fashion'}> <span>Fashion</span> </Link>
+         <Link to={'https://www.amazon.in/amazonprime?ref_=nav_cs_primelink_nonmember'}> <span className="font-semibold  text-amber-500">Prime</span> </Link>
+         <Link to={'https://www.amazon.in/gp/help/customer/display.html?nodeId=200507590&ref_=nav_cs_help'}> <span>Customer Service</span> </Link>
+         <Link to={'https://www.amazon.in/gp/new-releases/?ref_=nav_cs_newreleases'}> <span>New Releases</span> </Link>
+         <Link to={'https://www.amazon.in/electronics/b/?ie=UTF8&node=976419031&ref_=nav_cs_electronics'}> <span>Electronics</span> </Link>
+         <Link to={'https://www.amazon.in/Home-Kitchen/b/?ie=UTF8&node=976442031&ref_=nav_cs_home'}> <span>Home & Kitchen</span> </Link>
+         <Link to={'https://www.amazon.in/amazonpay/home?ref_=nav_cs_apay'}> <span>Amazon Pay</span> </Link>
         </div>
       </header>
     </div>

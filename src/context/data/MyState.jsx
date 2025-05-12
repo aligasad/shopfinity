@@ -107,7 +107,6 @@ function MyState({ children }) {
   }, []);
 
   // Update and Delete peoducts only admine can do it-------------------------
-
   //update product function ----------------------
   const editHandle = (item) => {
     setProducts(item);
@@ -142,10 +141,8 @@ function MyState({ children }) {
     }
   };
 
-
   // orderedData function------------------
   const [order, setOrder] = useState([]);
-
   const getOrderData = async () => {
     setLoading(true);
     try {
@@ -163,38 +160,94 @@ function MyState({ children }) {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     getOrderData();
   }, []);
 
   const [users, setUsers] = useState([]);
-
   const getUserData = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
-      const result = await getDocs(collection(firebaseDB, "users"))
+      const result = await getDocs(collection(firebaseDB, "users"));
       const usersArray = [];
       result.forEach((doc) => {
         usersArray.push(doc.data());
-        setLoading(false)
+        setLoading(false);
       });
       setUsers(usersArray);
-      console.log(usersArray)
+      console.log(usersArray);
       setLoading(false);
     } catch (error) {
-      console.log(error)
-      setLoading(false)
+      console.log(error);
+      setLoading(false);
     }
-  }
-
+  };
   useEffect(() => {
     getUserData();
   }, []);
 
-  const [searchkey, setSearchkey] = useState('');
-  const [filterType, setFilterType] = useState('');
-  const [filterPrice, setFilterPrice] = useState('');
+  const [searchkey, setSearchkey] = useState("");
+  const [filterType, setFilterType] = useState("");
+  const [filterPrice, setFilterPrice] = useState("");
+
+  // FOR FINDING CURRENT LOCATION----------------------
+  const [location, setLocation] = useState({ lat: null, lon: null });
+  const [address, setAddress] = useState(null);
+  const [error, setError] = useState(null);
+
+  const API_KEY = "3818f79df26b48559714cb5d0ecc5bfe"; // replace with your real key
+
+  useEffect(() => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setLocation({ lat: latitude, lon: longitude });
+          // Reverse geocode
+          fetch(
+            `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${API_KEY}`
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.results && data.results.length > 0) {
+                setAddress(data.results[0].formatted);
+              } else {
+                setError("No address found.");
+              }
+            })
+            .catch((err) => {
+              setError("Error fetching address.");
+            });
+        },
+        (err) => {
+          setError(err.message);
+        }
+      );
+    } else {
+      setError("Geolocation is not supported by your browser.");
+    }
+  }, []);
+
+
+  
+  // =================================================
+  // Offer on Product Function----------------------
+  const calcOffer = (price) => {
+    let discount = 0;
+
+    if (price >= 1000) {
+      discount = 0.2;
+    } else if (price >= 500) {
+      discount = 0.1;
+    } else if (price >= 100) {
+      discount = 0.05;
+    }
+
+    const discountedPrice = price - price * discount;
+    return discountedPrice.toFixed(2);
+  };
+
+  // =================================================
 
   return (
     <MyContext.Provider
@@ -211,7 +264,15 @@ function MyState({ children }) {
         updateProduct,
         deleteProduct,
         order,
-        users, searchkey, setSearchkey, filterType, setFilterType, filterPrice, setFilterPrice
+        users,
+        searchkey,
+        setSearchkey,
+        filterType,
+        setFilterType,
+        filterPrice,
+        setFilterPrice,
+        address,
+        calcOffer
       }}
     >
       {children}

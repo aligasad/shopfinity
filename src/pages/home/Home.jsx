@@ -29,11 +29,12 @@ function Home() {
 
   return (
     <>
+    
       <HeroSection />
-      {/* <Filter /> */}
+      <Filter />
       <ProductCard />
       {/* <ProductApi /> */}
-      <div className="flex justify-center -mt-10 mb-4">
+      <div className="flex justify-center md:-mt-10 mb-4 ">
         <Link to={'/allproducts'}>
           <button className=' bg-gray-300 px-5 py-2 rounded-xl'>See more</button>
         </Link>

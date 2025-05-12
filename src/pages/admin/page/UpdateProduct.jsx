@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { useData } from "../../../context/data/MyState";
 
 function UpdateProduct() {

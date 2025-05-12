@@ -5,7 +5,7 @@ import { useData } from "../../context/data/MyState";
 
 export default function Footer() {
   const context = useData();
-  const { toggleMode, mode } = context;
+  const { toggleMode, mode, address } = context;
   return (
     <footer
       className="text-sm body-font"
@@ -75,7 +75,7 @@ export default function Footer() {
               </li>
               <li>
                 <a className="hover:underline cursor-pointer">
-                  Fulfilment by E-Bharat
+                  Fulfilment by Amazon
                 </a>
               </li>
             </nav>
@@ -116,15 +116,15 @@ export default function Footer() {
           color: "#ccc",
         }}
       >
-        <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row items-center justify-between text-center">
+        <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row items-center justify-around text-center">
           <Link
             to={"/"}
             className="flex items-center justify-center mb-2 sm:mb-0"
           >
-            <span className="text-white font-bold text-xl">Amazon</span>
+            <span className="text-gray-400 ">{address}</span>
           </Link>
           <p className="text-sm text-gray-400">
-            © 2025 E-Bharat — All rights reserved.
+            © 2025 asadalam.info — All rights reserved.
           </p>
           <span className="inline-flex justify-center sm:justify-start mt-2 sm:mt-0 space-x-3">
             <a className="text-gray-400 hover:text-white cursor-pointer">

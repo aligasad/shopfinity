@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Layout from "../../components/layout/Layout";
 import Loader from "../../components/loader/Loader";
 import { useData } from "../../context/data/MyState";
+import NoOrderFound from "../../components/noorder/NoOrderFound";
 
 function Order() {
   const userid = JSON.parse(localStorage.getItem("user")).user.uid;
@@ -78,7 +79,7 @@ function Order() {
           </div>
         </>
       ) : (
-        <h2 className=" text-center tex-2xl text-white">Not Order</h2>
+        <NoOrderFound />
       )}
     </>
   );

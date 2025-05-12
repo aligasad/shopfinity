@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useData } from "../../context/data/MyState";
 import { addToCart } from "../../redux/CartSlice";
 import { toast } from "react-toastify";
+import Filter from "../../components/filter/Filter";
 
 function Allproducts() {
   const context = useData();
@@ -16,6 +17,7 @@ function Allproducts() {
     setFilterType,
     filterPrice,
     setFilterPrice,
+    calcOffer
   } = context;
 
   const dispatch = useDispatch();
@@ -43,8 +45,11 @@ function Allproducts() {
     window.scrollTo(0, 0);
   }, []);
 
+  
+
   return (
     <section className="text-gray-600 body-font">
+      <Filter />
       <div className="container px-5 py-8 md:py-16 mx-auto">
         <div class="lg:w-1/2 w-full mb-6 lg:mb-10">
           <h1
@@ -60,12 +65,11 @@ function Allproducts() {
           {product
             .filter((obj) => obj.title.toLowerCase().includes(searchkey))
             .filter((obj) => obj.category.toLowerCase().includes(filterType))
+            .filter((obj) => obj.price.trim().includes(filterPrice))
             .map((item, index) => {
-              const { title, price, description, imageUrl, id } = item;
+              const { title, price, category, imageUrl, id } = item;
               return (
-
                 <div
-                  
                   key={index}
                   className="p-3 w-full sm:w-1/2 md:w-1/3 lg:w-1/4"
                 >
@@ -78,7 +82,9 @@ function Allproducts() {
                   >
                     <div className="flex justify-center items-center p-4">
                       <img
-                      onClick={() => (window.location.href = `/productinfo/${id}`)}
+                        onClick={() =>
+                          (window.location.href = `/productinfo/${id}`)
+                        }
                         className="h-48 object-contain transition-transform rounded-md duration-300 
                         hover:scale-110 md:hover:scale-135 cursor-pointer"
                         src={imageUrl}
@@ -86,16 +92,19 @@ function Allproducts() {
                       />
                     </div>
                     <div className="px-4 pb-4 border-t border-gray-100">
-                      <p className="text-xs text-gray-500 mb-1">E-Bharat</p>
+                      <p className="text-xs text-gray-500 mb-1">{category}</p>
                       <h2
                         className="text-sm font-semibold text-gray-800 truncate"
                         style={{ color: mode === "dark" ? "#FFD814" : "" }}
                       >
                         {title}
                       </h2>
-                      <p className="text-base font-bold text-red-600 mt-1">
-                        ₹{price}
-                      </p>
+                      <div className="flex items-baseline gap-1">
+                        <p className="text-base font-bold text-red-600 mt-1">
+                         ₹{calcOffer(Number(price))}
+                        </p>
+                        <p className="text-[0.92rem] font-semibold text-amber-600  line-through">₹{price}</p>
+                      </div>
 
                       <button
                         type="button"

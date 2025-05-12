@@ -29,5 +29,5 @@ This is a full-featured Ecommerce web application built using **React** for the 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/ecommerce-react-firebase.git
+https://amazon-co-three.vercel.app/
 

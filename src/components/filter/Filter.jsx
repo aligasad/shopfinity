@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import { useData } from "../../context/data/MyState";
 import { FiSearch } from "react-icons/fi";
 
@@ -15,79 +14,102 @@ function Filter() {
     product,
   } = context;
 
+  function resetFilter() {
+    setSearchkey("");
+    setFilterPrice("");
+    setFilterType("");
+  }
+
   return (
+
     <div>
-      <div className=" container mx-auto px-4 mt-5 ">
-        <div
-          className="p-5 rounded-lg bg-gray-100 drop-shadow-xl border border-gray-200"
+  <div className="container mx-auto px-4 mt-5 md:hidden">
+    <div
+      className="p-5 rounded-lg drop-shadow-xl border"
+      style={{
+        backgroundColor: mode === "dark" ? "#232F3E" : "#f3f4f6",
+        color: mode === "dark" ? "#ffffff" : "#111",
+        borderColor: mode === "dark" ? "#37475A" : "#d1d5db",
+      }}
+    >
+      <div className="relative">
+        <div className="absolute flex items-center ml-2 h-full text-gray-500">
+          <FiSearch />
+        </div>
+        <input
+          type="text"
+          name="searchkey"
+          id="searchkey"
+          value={searchkey}
+          onChange={(e) => setSearchkey(e.target.value)}
+          placeholder="Search for products"
+          className="px-10 py-3 w-full rounded-md border outline-none text-sm transition-all duration-300"
           style={{
-            backgroundColor: mode === "dark" ? "#282c34" : "",
-            color: mode === "dark" ? "white" : "",
+            backgroundColor: mode === "dark" ? "#37475A" : "#ffffff",
+            color: mode === "dark" ? "#ffffff" : "#111",
+            border: mode === "dark" ? "1px solid #485769" : "1px solid #FF9900",
           }}
+        />
+      </div>
+
+      <div className="flex items-center justify-between mt-4">
+        <p className="font-semibold text-sm">Filters</p>
+        <button 
+        onClick={resetFilter}
+          className="px-4 py-2 bg-[#FF9900] hover:bg-[#e68a00] text-white text-sm font-medium rounded-md transition-colors cursor-pointer"
         >
-          <div className="relative">
-            <div className="absolute flex items-center ml-2 h-full">
-              <FiSearch />
-            </div>
-            <input
-              type="text"
-              name="searchkey"
-              id="searchkey"
-              value={searchkey}
-              onChange={(e) => setSearchkey(e.target.value)}
-              placeholder="Search here"
-              className="px-8 py-3 w-full rounded-md bg-violet-0 border-transparent outline-0 text-sm"
-              style={{
-                backgroundColor: mode === "dark" ? "rgb(64 66 70)" : "",
-                color: mode === "dark" ? "white" : "",
-              }}
-            />
-          </div>
-          <div className="flex items-center justify-between mt-4">
-            <p className="font-medium">Filters</p>
-            <button
-              className="px-4 py-2 bg-gray-50hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md"
-              style={{ color: mode === "dark" ? "white" : "" }}
-            >
-              Reset Filter
-            </button>
-          </div>
-          <div>
-            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
-              <select
-                className="px-4 py-3 w-full rounded-md bg-gray-50 border-transparent outline-0 focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-                style={{
-                  backgroundColor: mode === "dark" ? "rgb(64 66 70)" : "",
-                  color: mode === "dark" ? "white" : "",
-                }}
-              >
-                <option value="jacket">Jacket</option>
-                {product.map((item, index) => {
-                  // console.log("CHECK OPTIONS",item.category.replace(/\s+/g, '').toLowerCase());
-                  return (
-                    <option key={index} value={item.category}>
-                      {item.category}
-                    </option>
-                  );
-                })}
-              </select>
-              <select
-                className="px-4 py-3 w-full rounded-md bg-gray-50 border-transparent outline-0  focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-                style={{
-                  backgroundColor: mode === "dark" ? "rgb(64 66 70)" : "",
-                  color: mode === "dark" ? "white" : "",
-                }}
-              >
-                <option value="100">100</option>
-                <option value="200">200</option>
-                <option value="300">300</option>
-                <option value="400">400</option>
-              </select>
-            </div>
-          </div>
+          Reset Filter
+        </button>
+      </div>
+
+      <div>
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
+          <select
+            value={filterType}
+            onChange={(e) => setFilterType(e.target.value)}
+            className="px-4 py-3 w-full rounded-md bg-white border text-sm outline-none transition focus:ring-2 focus:ring-[#FF9900]"
+            style={{
+              backgroundColor: mode === "dark" ? "#37475A" : "#ffffff",
+              color: mode === "dark" ? "#ffffff" : "#111",
+            }}
+          >
+            <option value="">All</option>
+            {[...new Set(product.map((item) => item.category))].map(
+              (item, idx) => (
+                <option
+                  key={idx}
+                  value={item.replace(/\s+/g, "").toLowerCase()}
+                >
+                  {item}
+                </option>
+              )
+            )}
+          </select>
+
+          <select
+            value={filterPrice}
+            onChange={(e) => setFilterPrice(e.target.value)}
+            className="px-4 py-3 w-full rounded-md bg-white border text-sm outline-none transition focus:ring-2 focus:ring-[#FF9900]"
+            style={{
+              backgroundColor: mode === "dark" ? "#37475A" : "#ffffff",
+              color: mode === "dark" ? "#ffffff" : "#111",
+            }}
+          >
+            <option value="">All</option>
+            {[...new Set(product.map((item) => item.price))].map(
+              (item, idx) => (
+                <option key={idx} value={item}>
+                  {item}
+                </option>
+              )
+            )}
+          </select>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
   );
 }
 

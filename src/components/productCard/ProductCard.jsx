@@ -16,6 +16,7 @@ function ProductCard() {
     setFilterType,
     filterPrice,
     setFilterPrice,
+    calcOffer
   } = context;
   console.log(product);
   const dispatch = useDispatch();
@@ -68,7 +69,7 @@ function ProductCard() {
                 .replace(/\s+/g, "")
                 .toLowerCase()
                 .includes(filterType)
-            ).slice(0, 8).map((item, index) => {
+            ).slice(0, 8).filter((obj) => obj.price.trim().includes(filterPrice)).map((item, index) => {
               const {
                 title,
                 price,
@@ -83,6 +84,7 @@ function ProductCard() {
                 <div
                   key={index}
                   className="p-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 drop-shadow-lg"
+                  style={{ color: mode === "dark" ? "white" : "" }}
                 >
                   <div
                     className="h-full border-2 border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl bg-white dark:bg-[#2E3137]"
@@ -101,12 +103,16 @@ function ProductCard() {
                     </div>
 
                     <div className="p-5 border-t border-gray-200 dark:border-gray-600">
-                      <h1 className="text-lg font-bold text-white mb-2">
+                      <h1 className="text-lg font-bold text-white ">
                         {title.slice(0, 20)}....
                       </h1>
-                      <p className="text-lg font-semibold text-amber-600 mb-4">
-                        ₹{price}
-                      </p>
+                      <p className="text-white text-sm">{category}</p>
+                      <div className="flex items-baseline gap-1 mb-2">
+                        <p className="text-base font-bold text-red-600 mt-1">
+                         ₹{calcOffer(Number(price))}
+                        </p>
+                        <p className="text-[0.92rem] font-semibold text-amber-600  line-through">₹{price}</p>
+                      </div>
 
                       <button
                         onClick={() => addCart(item)}

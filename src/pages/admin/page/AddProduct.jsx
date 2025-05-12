@@ -6,9 +6,9 @@ function AddProduct() {
   const { products, setProducts, addProduct } = context;
 
   // got to top
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
 
   return (
     <div className="py-3">
