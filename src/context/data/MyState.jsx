@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import MyContext from "./myContext.jsx";
+import MyContext from "./MyContext.jsx";
 import {
   addDoc,
   collection,
