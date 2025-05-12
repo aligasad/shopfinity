@@ -11,8 +11,8 @@ const ProductApi = () => {
       method: "GET",
       url: "https://real-time-amazon-data.p.rapidapi.com/search",
       params: {
-        query: "Cloths",
-        page: page.toString(),
+        query: "Phone",
+        page: "1",
         country: "US",
         sort_by: "RELEVANCE",
         product_condition: "ALL",
@@ -20,19 +20,16 @@ const ProductApi = () => {
         deals_and_discounts: "NONE",
       },
       headers: {
-        "x-rapidapi-key": "d24a87a224msh65990e2f1eda007p111dadjsnb6df54d6aa27",
+        "x-rapidapi-key": "beaa9be43bmsh1b914ce7e263482p1cfdaajsn672e7df79999",
         "x-rapidapi-host": "real-time-amazon-data.p.rapidapi.com",
       },
     };
 
     try {
-      setLoading(true);
       const response = await axios.request(options);
-      console.log("API response:", response.data.data.products);
-      setProducts(response.data.data.products);
+      console.log(response.data);
     } catch (error) {
-      console.error("Error fetching Amazon data:", error);
-      setProducts([]);
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -93,7 +90,7 @@ const ProductApi = () => {
 
           {/* Pagination */}
           <div className="flex justify-center mt-6 space-x-2">
-            {Array.from({length: 10}).map((_, i) => (
+            {Array.from({ length: 10 }).map((_, i) => (
               <button
                 key={i + 1}
                 onClick={() => handlePageClick(i + 1)}

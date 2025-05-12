@@ -18,6 +18,7 @@ import UpdateProduct from "./pages/admin/page/UpdateProduct.jsx";
 import { ToastContainer, Bounce } from "react-toastify";
 import AuthProvider from "./components/protector/AuthContext.jsx";
 import ProtectedRoute from "./components/protector/ProtectedRoute.jsx";
+import Allproducts from "./pages/allproducts/Allproducts.jsx";
 
 function App() {
   const router = createBrowserRouter([
@@ -65,6 +66,10 @@ function App() {
         {
           path: "/productinfo/:id",
           element: <ProductInfo />,
+        },
+        {
+          path: "/allproducts",
+          element: <Allproducts />,
         },
         {
           path: "/addproduct",

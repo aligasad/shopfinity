@@ -7,7 +7,16 @@ import { Timestamp } from "firebase/firestore";
 
 function ProductCard() {
   const context = useData();
-  const { mode, product } = context;
+  const {
+    mode,
+    product,
+    searchkey,
+    setSearchkey,
+    filterType,
+    setFilterType,
+    filterPrice,
+    setFilterPrice,
+  } = context;
   console.log(product);
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart);
@@ -34,6 +43,10 @@ function ProductCard() {
     localStorage.setItem("cart", JSON.stringify(cartItems));
   }, [cartItems]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <section className="text-gray-600 body-font">
       <div className="container px-5 py-8 md:py-16 mx-auto">
@@ -42,100 +55,70 @@ function ProductCard() {
             className="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900"
             style={{ color: mode === "dark" ? "white" : "" }}
           >
-            Our Latest Collection
+            Our Latest Products
           </h1>
-          <div className="h-1 w-20 bg-pink-600 rounded"></div>
+          <div className="h-1 w-20 bg-yellow-600 rounded"></div>
         </div>
 
         <div className="flex flex-wrap -m-4">
-          {product.map((item, index) => {
-            const { title, price, imageUrl, category, description, date } =
-              item;
-            return (
-              // <div key={index} className="p-4 md:w-1/4  drop-shadow-lg ">
-              //   <div
-              //     className="h-full border-2 hover:shadow-gray-100 hover:shadow-2xl transition-shadow duration-300 ease-in-out    border-gray-200 border-opacity-60 rounded-2xl overflow-hidden"
-              //     style={{
-              //       backgroundColor: mode === "dark" ? "rgb(46 49 55)" : "",
-              //       color: mode === "dark" ? "white" : "",
-              //     }}
-              //   >
-              //     <div className="flex justify-center cursor-pointer">
-              //       <img
-              //         className=" rounded-2xl w-full h-80 p-2 hover:scale-110 transition-scale-110  duration-300 ease-in-out"
-              //         src={imageUrl}
-              //         alt="blog"
-              //       />
-              //     </div>
-              //     <div className="p-5 border-t-2">
-              //       <h2
-              //         className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1"
-              //         style={{ color: mode === "dark" ? "white" : "" }}
-              //       >
-              //         Amazon
-              //       </h2>
-              //       <h1
-              //         className="title-font text-lg font-medium text-gray-900 mb-3"
-              //         style={{ color: mode === "dark" ? "white" : "" }}
-              //       >
-              //         {title}
-              //       </h1>
-              //       {/* <p className="leading-relaxed mb-3">{item.description.}</p> */}
-              //       <p
-              //         className="leading-relaxed mb-3"
-              //         style={{ color: mode === "dark" ? "white" : "" }}
-              //       >
-              //         {"₹" + price}
-              //       </p>
-              //       <div className=" flex justify-center">
-              //         <button
-              //           onClick={() => addCart(item)}
-              //           type="button"
-              //           className="focus:outline-none text-white bg-pink-600 hover:bg-pink-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm w-full  py-2"
-              //         >
-              //           Add To Cart
-              //         </button>
-              //       </div>
-              //     </div>
-              //   </div>
-              // </div>
-              <div
-                key={index}
-                className="p-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 drop-shadow-lg"
-              >
+          {product
+            .filter((item) => item.title.toLowerCase().includes(searchkey))
+            .filter((item) =>
+              item.category
+                .replace(/\s+/g, "")
+                .toLowerCase()
+                .includes(filterType)
+            ).slice(0, 8).map((item, index) => {
+              const {
+                title,
+                price,
+                imageUrl,
+                id,
+                category,
+                description,
+                date,
+              } = item;
+              return (
+
                 <div
-                  className="h-full border-2 border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl bg-white dark:bg-[#2E3137]"
-                  style={{
-                    color: mode === "dark" ? "white" : "#232f3e",
-                  }}
+                  key={index}
+                  className="p-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 drop-shadow-lg"
                 >
-                  <div className="flex justify-center overflow-hidden">
-                    <img
-                      className="rounded-t-2xl w-full h-64 object-top object-cover hover:scale-105 transition-transform duration-300"
-                      src={imageUrl}
-                      alt="product"
-                    />
-                  </div>
+                  <div
+                    className="h-full border-2 border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl bg-white dark:bg-[#2E3137]"
+                    style={{
+                      color: mode === "dark" ? "white" : "#232f3e",
+                    }}
+                  >
+                    <div
+                    onClick={() => (window.location.href = `/productinfo/${id}`)}
+                    className="flex justify-center overflow-hidden">
+                      <img
+                        className="rounded-t-2xl w-full h-64 object-top object-cover hover:scale-105 transition-transform duration-300"
+                        src={imageUrl}
+                        alt="product"
+                      />
+                    </div>
 
-                  <div className="p-5 border-t border-gray-200 dark:border-gray-600">
-                    <h1 className="text-lg font-bold text-white mb-2">
-                      {title.slice(0, 20)}....
-                    </h1>
-                    <p className="text-lg font-semibold text-amber-600 mb-4">
-                      ₹{price}
-                    </p>
+                    <div className="p-5 border-t border-gray-200 dark:border-gray-600">
+                      <h1 className="text-lg font-bold text-white mb-2">
+                        {title.slice(0, 20)}....
+                      </h1>
+                      <p className="text-lg font-semibold text-amber-600 mb-4">
+                        ₹{price}
+                      </p>
 
-                    <button
-                      onClick={() => addCart(item)}
-                      className="w-full py-2 text-sm font-semibold rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-300"
-                    >
-                      Add to Cart
-                    </button>
+                      <button
+                        onClick={() => addCart(item)}
+                        className="w-full py-2 text-sm font-semibold rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+                      >
+                        Add to Cart
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </div>
     </section>

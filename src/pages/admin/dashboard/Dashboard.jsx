@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useEffect } from "react";
 import { FaUserTie } from "react-icons/fa";
 import { useData } from "../../../context/data/MyState";
 import DashboardTab from "./DashboardTab";
@@ -9,6 +9,12 @@ function Dashboard() {
   let orderLength = order.length;
   let productLength = product.length;
   let usersLength = users.length;
+
+  useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [])
+
+
   return (
     <section className="text-gray-600 body-font mt-10 mb-10">
       {/* <div className="container px-5 mx-auto mb-10">

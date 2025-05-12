@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useEffect } from "react";
 import Layout from "../../components/layout/Layout";
 import Loader from "../../components/loader/Loader";
 import { useData } from "../../context/data/MyState";
@@ -7,6 +7,12 @@ function Order() {
   const userid = JSON.parse(localStorage.getItem("user")).user.uid;
   const context = useData();
   const { mode, loading, order } = context;
+
+  // got to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       {loading && <Loader />}

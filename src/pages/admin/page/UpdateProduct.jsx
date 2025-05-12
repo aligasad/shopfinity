@@ -5,6 +5,11 @@ function UpdateProduct() {
   const context = useData(); // custom hook
   const { products, setProducts, updateProduct } = context;
 
+  // got to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className=" py-3 ">
       <div className=" flex justify-center items-center h-full">

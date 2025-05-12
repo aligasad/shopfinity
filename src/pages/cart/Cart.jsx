@@ -119,6 +119,11 @@ function Cart() {
     console.log(pay);
   };
 
+  // Go to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div
       className="h-full lg:h-screen bg-gray-100 pt-5 "

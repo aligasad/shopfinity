@@ -12,7 +12,7 @@ import {
   Transition,
   TransitionChild,
 } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { auth } from "../../firebase/FirebaseConfig";
 import { toast } from "react-toastify";
@@ -21,7 +21,18 @@ import { useSelector } from "react-redux";
 function Navbar() {
   const navigate = useNavigate();
   const context = useData();
-  const { mode, toggleMode } = context;
+  const {
+    mode,
+    toggleMode,
+    product,
+    searchkey,
+    setSearchkey,
+    filterType,
+    setFilterType,
+    filterPrice,
+    setFilterPrice,
+  } = context;
+
   const [open, setOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -44,6 +55,8 @@ function Navbar() {
 
   // cartItems data---------------------
   const cartItems = useSelector((state) => state.cart);
+
+  //for select section--------------------------------
 
   return (
     <div className="bg-white sticky top-0 z-50 ">
@@ -238,38 +251,29 @@ function Navbar() {
 
           {/* Middle: Search */}
           <div className=" hidden md:flex flex-grow mx-4">
-            <select className="bg-gray-200 text-black text-sm p-2 w-24 rounded-l-md outline-0 ">
-              <option value="" selected disabled>
+            <select
+              value={filterType}
+              onChange={(e) => setFilterType(e.target.value)}
+              className="bg-gray-200 text-black text-sm p-2 w-24 rounded-l-md outline-0 "
+            >
+              <option value="">
                 Select
               </option>
-              <option value="jacket">Jacket</option>
-              <option value="shirt">shirt</option>
-              <option value="mobile">mobile</option>
-              <option value="jacket">Jacket</option>
-              <option value="all">All Categories</option>
-              <option value="alexa-skills">Alexa Skills</option>
-              <option value="amazon-devices">Amazon Devices</option>
-              <option value="amazon-fashion">Amazon Fashion</option>
-              <option value="amazon-fresh">Amazon Fresh</option>
-              <option value="amazon-pharmacy">Amazon Pharmacy</option>
-              <option value="appliances">Appliances</option>
-              <option value="apps-games">Apps & Games</option>
-              <option value="audible-audiobooks">Audible Audiobooks</option>
-              <option value="baby">Baby</option>
-              <option value="beauty">Beauty</option>
-              <option value="books">Books</option>
-              <option value="car-motorbike">Car & Motorbike</option>
-              <option value="clothing-accessories">
-                Clothing & Accessories
-              </option>
-              <option value="collectibles">Collectibles</option>
-              <option value="computers-accessories">
-                Computers & Accessories
-              </option>
-              <option value="deals">Deals</option>
-              <option value="electronics">Electronics</option>
-              <option value="furniture">Furniture</option>
-              <option value="garden-outdoors">Garden & Outdoors</option>
+              <option value="">All</option>
+              {/* {product.map((item, idx) => {
+                return <option key={idx} value={item.category.replace(/\s+/g, '').toLowerCase()}>{item.category}</option>;
+              })} */}
+              {/* Ye distinct option ko hi select option me show krayega */}
+              {[...new Set(product.map((item) => item.category))].map(
+                (item, idx) => (
+                  <option
+                    key={idx}
+                    value={item.replace(/\s+/g, "").toLowerCase()}
+                  >
+                    {item}
+                  </option>
+                )
+              )}
             </select>
 
             <input
@@ -277,6 +281,8 @@ function Navbar() {
               name="searchkey"
               id="searchkey"
               placeholder="Search here"
+              value={searchkey}
+              onChange={(e) => setSearchkey(e.target.value)}
               className="px-8 py-3 w-full bg-amber-50 text-black border-transparent outline-0 text-sm"
               style={{
                 backgroundColor: mode === "dark" ? "rgb(64 66 70)" : "",

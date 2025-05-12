@@ -1,9 +1,14 @@
-import React from "react";
+import { useEffect } from "react";
 import { useData } from "../../../context/data/MyState";
 
 function AddProduct() {
   const context = useData(); // custom hook
   const { products, setProducts, addProduct } = context;
+
+  // got to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="py-3">
