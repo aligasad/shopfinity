@@ -1,11 +1,11 @@
 import { useData } from "../../context/data/MyState";
 import { BsFillCloudSunFill } from "react-icons/bs";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { IoSettings } from "react-icons/io5";
 import { MdLogout } from "react-icons/md";
 import { FaAngleDown } from "react-icons/fa";
 import { FiSun } from "react-icons/fi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Links, useNavigate } from "react-router-dom";
 import {
   Dialog,
   DialogPanel,
@@ -65,6 +65,7 @@ function Navbar() {
 
   // cartItems data---------------------
   const cartItems = useSelector((state) => state.cart);
+  const wishListitems = useSelector((state) => state.wishlist);
 
   // got to top
   useEffect(() => {
@@ -148,12 +149,17 @@ function Navbar() {
                   </div>
                   <div onClick={() => setOpen(false)} className="flow-root">
                     <Link
-                      to={"/wishlist"}
-                      style={{ color: mode === "dark" ? "white" : "" }}
-                      className="-m-2 block p-2 font-medium text-gray-900"
-                    >
-                      Wishlist
-                    </Link>
+                        to="/wishlist"
+                        className="flex items-center gap-2"
+                      >
+                        Wishlist{" "}
+                        <p className="relative flex items-center">
+                          <AiFillHeart title="Your Wishlist" className="text-2xl text-amber-700" />
+                          <span className="absolute top-[-10px] right-[-10px] bg-amber-500 font-bold text-black rounded-full w-5 h-5 flex justify-center items-center text-xs">
+                            {wishListitems.length}
+                          </span>
+                        </p>
+                      </Link>
                   </div>
 
                   {user?.user?.email === "asadalam4291@gmail.com" ? (
@@ -414,9 +420,9 @@ function Navbar() {
                       >
                         Wishlist{" "}
                         <p className="relative flex items-center">
-                          <AiOutlineHeart title="Your Wishlist" className="" />
-                          <span className="absolute top-[-10px] right-[-10px] bg-rose-400 font-bold text-black rounded-full w-4 h-4 flex justify-center items-center text-xs">
-                            0
+                          <AiFillHeart title="Your Wishlist" className="text-xl text-amber-700" />
+                          <span className="absolute top-[-8px] right-[-8px] bg-amber-500 font-bold text-black rounded-full w-4 h-4 flex justify-center items-center text-xs">
+                            {wishListitems.length}
                           </span>
                         </p>
                       </Link>

@@ -5,6 +5,8 @@ import { useData } from "../../context/data/MyState";
 import { addToCart } from "../../redux/CartSlice";
 import { toast } from "react-toastify";
 import Filter from "../../components/filter/Filter";
+import { FaHeart } from "react-icons/fa6";
+import { addToWishlist } from "../../redux/WishlistSlice";
 
 function Allproducts() {
   const context = useData();
@@ -17,35 +19,59 @@ function Allproducts() {
     setFilterType,
     filterPrice,
     setFilterPrice,
-    calcOffer
+    calcOffer,
   } = context;
 
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart);
+  const wishListitems = useSelector((state) => state.wishlist);
   console.log(cartItems);
 
+  // add to cart if item is not already present
+  const user = JSON.parse(localStorage.getItem("user"));
   const addCart = (product) => {
-    const existingItem = cartItems.some((item) => {
-      return item.id === product.id;
-    });
-    console.log("EXISTING", existingItem);
-    if (!existingItem) {
-      dispatch(addToCart(product));
-      toast.success("Item added to cart");
+    if (user) {
+      const existingItem = cartItems.some((item) => {
+        return item.id === product.id;
+      });
+      console.log("EXISTING", existingItem);
+      if (!existingItem) {
+        dispatch(addToCart(product));
+        toast.success("Item added to cart");
+      } else {
+        toast.warning("Item already added!");
+      }
     } else {
-      toast.warning("Item already added!");
+      toast.warning("Please login first!");
+    }
+  };
+  // add to wishlist if item is not already present
+  const addWishlist = (product) => {
+    if (user) {
+      const existingItem = wishListitems.some((item) => {
+        return item.id === product.id;
+      });
+      // console.log("EXISTING", existingItem);
+      if (!existingItem) {
+        dispatch(addToWishlist(product));
+        toast.success("Item added to wishlist");
+        // setIsWished(!isWished);
+      } else {
+        toast.warning("Item already added!");
+      }
+    } else {
+      toast.warning("Please Login First !");
     }
   };
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
-  }, [cartItems]);
+    localStorage.setItem("wishlist", JSON.stringify(wishListitems));
+  }, [cartItems, wishListitems]);
   // got to top
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  
 
   return (
     <section className="text-gray-600 body-font">
@@ -97,7 +123,9 @@ function Allproducts() {
                       />
                     </div>
                     <div className="px-4 pb-4 border-t border-gray-100">
-                      <p className="text-xs text-gray-500 mt-2 mb-1">{category}</p>
+                      <p className="text-xs text-gray-500 mt-2 mb-1">
+                        {category}
+                      </p>
                       <h2
                         className="text-sm font-semibold text-gray-800 truncate"
                         style={{ color: mode === "dark" ? "#FFD814" : "" }}
@@ -106,21 +134,30 @@ function Allproducts() {
                       </h2>
                       <div className="flex items-baseline gap-1">
                         <p className="text-base font-bold text-red-600 mt-1">
-                         ₹{calcOffer(Number(price))}
+                          ₹{calcOffer(Number(price))}
                         </p>
-                        <p className="text-[0.92rem] font-semibold text-amber-600  line-through">₹{price}</p>
+                        <p className="text-[0.92rem] font-semibold text-amber-600  line-through">
+                          ₹{price}
+                        </p>
                       </div>
 
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          addCart(item);
-                        }}
-                        className="mt-3 w-full bg-yellow-400 hover:bg-yellow-500 text-black font-medium text-sm py-2 rounded shadow-sm cursor-pointer"
-                      >
-                        Add to Cart
-                      </button>
+                      <div className="flex items-center justify-between mt-4">
+                        {/* AddToCart Button */}
+                        <button
+                          onClick={() => addCart(item)}
+                          className="flex-1 py-2 mr-2 text-sm font-semibold rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 transition duration-300 cursor-pointer"
+                        >
+                          Add to Cart
+                        </button>
+
+                        {/* Wishlist Button */}
+                        <button
+                          onClick={() => addWishlist(item)}
+                          className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 grid place-items-center dark:bg-gray-700 dark:hover:bg-gray-600 transition cursor-pointer"
+                        >
+                          <FaHeart className="text-xl text-amber-400" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>

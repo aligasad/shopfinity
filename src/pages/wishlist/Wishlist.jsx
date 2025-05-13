@@ -8,6 +8,7 @@ import { deleteFromCart } from "../../redux/CartSlice";
 import { toast } from "react-toastify";
 import { firebaseDB } from "../../firebase/FirebaseConfig";
 import { deleteFromWishlist } from "../../redux/WishlistSlice";
+import NoOrderFound from "../../components/noorder/NoOrderFound";
 
 function Cart() {
   const context = useData();
@@ -43,10 +44,10 @@ function Cart() {
         color: mode === "dark" ? "white" : "",
       }}
     >
-      <h1 className="mb-10 text-center text-2xl font-bold">Cart Items</h1>
+      <h1 className="mb-10 text-center text-2xl font-bold">Wishlist Items</h1>
       <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0 ">
-        <div className="rounded-lg md:w-2/3 max-h-[80vh] overflow-y-auto ">
-          {wishlistItems.map((item, index) => {
+        <div className="rounded-lg md:w-3/4 max-h-[80vh] overflow-y-auto ">
+          {wishlistItems.length > 0 ? wishlistItems.map((item, index) => {
             const { title, price, imageUrl, description } = item;
             return (
               <div
@@ -99,7 +100,7 @@ function Cart() {
                 </div>
               </div>
             );
-          })}
+          }) : <NoOrderFound />}
         </div>
       </div>
     </div>

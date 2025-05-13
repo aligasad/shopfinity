@@ -249,6 +249,7 @@ function MyState({ children }) {
     const discountedPrice = price - price * discount;
     return discountedPrice.toFixed(2);
   };
+  
 
   // =================================================
 
@@ -257,6 +258,7 @@ function MyState({ children }) {
     setFilterPrice("");
     setFilterType("");
   }
+
 
   return (
     <MyContext.Provider

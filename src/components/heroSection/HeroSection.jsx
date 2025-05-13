@@ -19,7 +19,7 @@ const images = [
 const NextArrow = ({ onClick }) => (
   <div
     onClick={onClick}
-    className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 cursor-pointer text-white text-3xl bg-black/50 p-2 rounded-full"
+    className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 cursor-pointer text-white text-base sm:text-2xl md:text-3xl bg-black/50 p-2 rounded-full"
   >
     <FaChevronRight />
   </div>
@@ -28,7 +28,7 @@ const NextArrow = ({ onClick }) => (
 const PrevArrow = ({ onClick }) => (
   <div
     onClick={onClick}
-    className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 cursor-pointer text-white text-3xl bg-black/50 p-2 rounded-full"
+    className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 cursor-pointer text-white text-base sm:text-2xl md:text-3xl bg-black/50 p-2 rounded-full"
   >
     <FaChevronLeft />
   </div>
@@ -52,7 +52,7 @@ function HeroSection() {
       <Slider {...settings}>
         {images.map((src, index) => (
           <div key={index}>
-            <img src={src} alt={`Slide ${index}`} className="w-full h-20 sm:h-40 md:h-60  object-cover object-top" />
+            <img src={src} alt={`Slide ${index}`} className="w-full h-23 sm:h-40 md:h-60  object-cover object-top" />
           </div>
         ))}
       </Slider>

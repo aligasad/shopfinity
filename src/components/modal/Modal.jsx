@@ -29,11 +29,12 @@ export default function Modal({
 
   return (
     <>
+    
       <div className="  text-center rounded-lg text-white font-bold">
         <button
           type="button"
           onClick={openModal}
-          className="w-full  bg-violet-600 py-2 text-center rounded-lg text-white font-bold"
+          className="w-full  bg-amber-600 hover:bg-green-600 py-2 text-center rounded-lg text-white font-bold cursor-pointer"
         >
           Buy Now
         </button>
