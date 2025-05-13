@@ -7,9 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/CartSlice";
 import { toast } from "react-toastify";
 import { FaRegStar, FaStar } from "react-icons/fa";
+import { addToWishlist } from "../../redux/WishlistSlice";
 
 function ProductInfo() {
   const context = useData();
+  const [isWished, setIsWished] = useState(false);
   const { loading, setLoading } = context;
 
   const [products, setProducts] = useState("");
@@ -36,17 +38,44 @@ function ProductInfo() {
 
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart);
-  // console.log(cartItems)
+  const wishListitems = useSelector((state) => state.wishlist);
+  // console.log(cartItems);
 
-  // add to cart
-  const addCart = (products) => {
-    dispatch(addToCart(products));
-    toast.success("add to cart");
+  // add to cart if item is not already present
+  const addCart = (product) => {
+    const existingItem = cartItems.some((item) => {
+      return item.id === product.id;
+    });
+    console.log("EXISTING", existingItem);
+    if (!existingItem) {
+      dispatch(addToCart(product));
+      toast.success("Item added to cart");
+    } else {
+      toast.warning("Item already added!");
+    }
+  };
+  // add to cart if item is not already present
+  
+  const addWishlist = (product) => {
+    const existingItem = wishListitems.some((item) => {
+      return item.id === product.id;
+    });
+    console.log("EXISTING", existingItem);
+    if (!existingItem) {
+      dispatch(addToWishlist(product));
+      toast.success("Item added to wishlist");
+      setIsWished(!isWished);
+    } else {
+      toast.warning("Item already added!");
+    }
   };
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
-  }, [cartItems]);
+    localStorage.setItem("wishlist", JSON.stringify(wishListitems));
+  }, [cartItems, wishListitems]);
+
+  // add to wishlist
 
   // got to top
   useEffect(() => {
@@ -57,7 +86,6 @@ function ProductInfo() {
     <section className="text-gray-600 body-font overflow-hidden">
       <div className="container px-5 py-32 mx-auto">
         {products && (
-
           <div className="container mx-auto px-4 py-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <img
@@ -77,10 +105,10 @@ function ProductInfo() {
                 </h2>
                 <div className="flex flex-wrap items-center mb-4">
                   <span className="flex items-center">
-                    {Array.from({length: 4}).map((_, i) => (
-                      <FaStar className="text-yellow-400"/>
+                    {Array.from({ length: 4 }).map((_, i) => (
+                      <FaStar key={i} className="text-yellow-400" />
                     ))}
-                    <FaRegStar/>
+                    <FaRegStar />
                     <span className="text-gray-600 ml-3">4 Reviews</span>
                   </span>
                   <span className="flex ml-auto space-x-3 border-l-2 border-gray-200 pl-3">
@@ -101,14 +129,14 @@ function ProductInfo() {
                   >
                     Add To Cart
                   </button>
-                  <button className="rounded-full w-10 h-10 bg-gray-200 border-0 inline-flex items-center justify-center text-gray-500 ml-4 mt-4 lg:mt-0">
+                  <button onClick={() => addWishlist(products)}  className="rounded-full w-10 h-10 bg-gray-200 border-0 inline-flex items-center justify-center text-gray-500 ml-4 mt-4 lg:mt-0">
                     <svg
-                      fill="currentColor"
+                      fill={isWished ? "red" : "currentColor"}
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
                       className="w-5 h-5"
-                      viewBox="0 0 24 24"
+                      viewBox="0 0 24 24" 
                     >
                       <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
                     </svg>
@@ -117,8 +145,6 @@ function ProductInfo() {
               </div>
             </div>
           </div>
-
-
         )}
       </div>
     </section>

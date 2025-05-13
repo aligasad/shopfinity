@@ -56,7 +56,7 @@ function Navbar() {
     setIsDropdownOpen((prev) => !prev);
     localStorage.clear("user");
     navigate("/");
-    localStorage.clear("cart");
+    // localStorage.clear("cart");
     toast.success("Logout Successfully!");
   }
 
@@ -137,19 +137,24 @@ function Navbar() {
                       All Products
                     </Link>
                   </div>
-                  {user ? (
-                    <div onClick={() => setOpen(false)} className="flow-root">
-                      <Link
-                        to={"/orders"}
-                        style={{ color: mode === "dark" ? "white" : "" }}
-                        className="-m-2 block p-2 font-medium text-gray-900"
-                      >
-                        Order
-                      </Link>
-                    </div>
-                  ) : (
-                    ""
-                  )}
+                  <div onClick={() => setOpen(false)} className="flow-root">
+                    <Link
+                      to={"/orders"}
+                      style={{ color: mode === "dark" ? "white" : "" }}
+                      className="-m-2 block p-2 font-medium text-gray-900"
+                    >
+                      Order
+                    </Link>
+                  </div>
+                  <div onClick={() => setOpen(false)} className="flow-root">
+                    <Link
+                      to={"/wishlist"}
+                      style={{ color: mode === "dark" ? "white" : "" }}
+                      className="-m-2 block p-2 font-medium text-gray-900"
+                    >
+                      Wishlist
+                    </Link>
+                  </div>
 
                   {user?.user?.email === "asadalam4291@gmail.com" ? (
                     <div onClick={() => setOpen(false)} className="flow-root">
@@ -176,13 +181,15 @@ function Navbar() {
                       </Link>
                     </div>
                   ) : (
-                    <Link
-                      to={"/login"}
-                      className="-m-2 block p-2 font-medium text-gray-900"
-                      style={{ color: mode === "dark" ? "white" : "" }}
-                    >
-                      Login
-                    </Link>
+                    <div onClick={() => setOpen(false)} className="flow-root">
+                      <Link
+                        to={"/login"}
+                        className="-m-2 block p-2 font-medium text-gray-900"
+                        style={{ color: mode === "dark" ? "white" : "" }}
+                      >
+                        Login
+                      </Link>
+                    </div>
                   )}
 
                   <div className="flow-root">
@@ -252,7 +259,11 @@ function Navbar() {
                 />
               </svg>
             </button>
-            <Link onClick={resetFilter} to="/" className="text-yellow-400 font-bold text-2xl">
+            <Link
+              onClick={resetFilter}
+              to="/"
+              className="text-yellow-400 font-bold text-2xl"
+            >
               Amazon
             </Link>
             <div className="hidden md:flex flex-col leading-tight text-sm">
@@ -398,7 +409,7 @@ function Navbar() {
                     <li className="p-2 hover:bg-gray-400 relative">
                       <Link
                         onClick={toggleDropdown}
-                        to="/whitelist"
+                        to="/wishlist"
                         className="flex items-center gap-2"
                       >
                         Wishlist{" "}

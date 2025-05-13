@@ -55,7 +55,7 @@ function MyState({ children }) {
       products.category === null ||
       products.description === null
     ) {
-      return toast.error("Please fill all fields");
+      return toast.warning("Please fill all fields");
     }
 
     setLoading(true);
@@ -195,7 +195,7 @@ function MyState({ children }) {
   const [address, setAddress] = useState(null);
   const [error, setError] = useState(null);
 
-  const API_KEY = "3818f79df26b48559714cb5d0ecc5bfe"; // replace with your real key
+  const API_KEY = "3818f79df26b48559714cb5d0ecc5bfe";
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -221,6 +221,11 @@ function MyState({ children }) {
         },
         (err) => {
           setError(err.message);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0,
         }
       );
     } else {
@@ -277,7 +282,7 @@ function MyState({ children }) {
         setFilterPrice,
         address,
         calcOffer,
-        resetFilter
+        resetFilter,
       }}
     >
       {children}

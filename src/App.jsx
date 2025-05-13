@@ -7,6 +7,7 @@ import Layout from "./components/layout/Layout";
 import Home from "./pages/home/Home.jsx";
 import Order from "./pages/order/Order.jsx";
 import Cart from "./pages/cart/Cart.jsx";
+import Wishlist from './pages/wishlist/Wishlist.jsx';
 import Dashboard from "./pages/admin/dashboard/Dashboard.jsx";
 import NoPage from "./pages/nopage/NoPage.jsx";
 import MyState from "./context/data/MyState.jsx";
@@ -46,6 +47,14 @@ function App() {
               <Cart />,
             </ProtectedRoute>
           ),
+        },
+        {
+          path: '/wishlist',
+          element: (
+            <ProtectedRoute>
+              <Wishlist />
+            </ProtectedRoute>
+          )
         },
         {
           path: "/dashboard",

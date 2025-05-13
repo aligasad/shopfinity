@@ -20,7 +20,7 @@ const ProductApi = () => {
         deals_and_discounts: "NONE",
       },
       headers: {
-        "x-rapidapi-key": "beaa9be43bmsh1b914ce7e263482p1cfdaajsn672e7df79999",
+        "x-rapidapi-key": "92e6005d24msh36596efba93b1b5p17259ejsn1d2b480ab5a5",
         "x-rapidapi-host": "real-time-amazon-data.p.rapidapi.com",
       },
     };

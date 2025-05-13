@@ -23,7 +23,6 @@ function Order() {
             {order
               .filter((obj) => obj.userid == userid)
               .map((order) => {
-                // order.cartItems.map()
                 return (
                   <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
                     {order.cartItems.map((item) => {
