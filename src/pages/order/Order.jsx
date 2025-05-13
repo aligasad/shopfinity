@@ -7,7 +7,7 @@ import NoOrderFound from "../../components/noorder/NoOrderFound";
 function Order() {
   const userid = JSON.parse(localStorage.getItem("user")).user.uid;
   const context = useData();
-  const { mode, loading, order } = context;
+  const { mode, loading, order, calcOffer } = context;
 
   // got to top
   useEffect(() => {
@@ -44,15 +44,24 @@ function Order() {
                             <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
                               <div className="mt-5 sm:mt-0">
                                 <h2
-                                  className="text-lg font-bold text-gray-900"
+                                  className="text-xl font-bold text-gray-900"
                                   style={{
                                     color: mode === "dark" ? "white" : "",
                                   }}
                                 >
                                   {item.title}
                                 </h2>
+                                <h2
+                                  className="text-base font-semibold text-gray-600"
+                                  style={{
+                                    color: mode === "dark" ? "white" : "",
+                                  }}
+                                >
+                                  {item.category}
+                                </h2>
+
                                 <p
-                                  className="mt-1 text-xs text-gray-700"
+                                  className="mt-1 text-sm text-gray-700"
                                   style={{
                                     color: mode === "dark" ? "white" : "",
                                   }}
@@ -65,7 +74,14 @@ function Order() {
                                     color: mode === "dark" ? "white" : "",
                                   }}
                                 >
-                                  {item.price}
+                                  <div className="flex items-baseline gap-3">
+                                    <p className="text-base font-bold text-red-600 mt-1">
+                                      ₹{calcOffer(Number(item.price))}
+                                    </p>
+                                    <p className="text-sm font-semibold text-amber-600  line-through">
+                                      ₹{item.price}
+                                    </p>
+                                  </div>
                                 </p>
                               </div>
                             </div>

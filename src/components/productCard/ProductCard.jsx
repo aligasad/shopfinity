@@ -84,12 +84,13 @@ function ProductCard() {
                 <div
                   key={index}
                   className="p-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 drop-shadow-lg"
-                  style={{ color: mode === "dark" ? "white" : "" }}
+                
                 >
                   <div
                     className="h-full border-2 border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl bg-white dark:bg-[#2E3137]"
                     style={{
-                      color: mode === "dark" ? "white" : "#232f3e",
+                      backgroundColor: mode === "dark" ? "#232F3E" : "#FFFFFF",
+                      color: mode === "dark" ? "#FFFFFF" : "#000000",
                     }}
                   >
                     <div
@@ -103,10 +104,11 @@ function ProductCard() {
                     </div>
 
                     <div className="p-5 border-t border-gray-200 dark:border-gray-600">
-                      <h1 className="text-lg font-bold text-white ">
+                      <h1 className="text-lg font-bold text-gray-700 "
+                      style={{ color: mode === "dark" ? "#FFD814" : "" }}>
                         {title.slice(0, 20)}....
                       </h1>
-                      <p className="text-white text-sm">{category}</p>
+                      <p className="text-gray-500 text-sm">{category}</p>
                       <div className="flex items-baseline gap-1 mb-2">
                         <p className="text-base font-bold text-red-600 mt-1">
                          ₹{calcOffer(Number(price))}

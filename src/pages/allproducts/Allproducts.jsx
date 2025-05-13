@@ -64,7 +64,12 @@ function Allproducts() {
         <div className="flex flex-wrap -m-4">
           {product
             .filter((obj) => obj.title.toLowerCase().includes(searchkey))
-            .filter((obj) => obj.category.toLowerCase().includes(filterType))
+            .filter((item) =>
+              item.category
+                .replace(/\s+/g, "")
+                .toLowerCase()
+                .includes(filterType)
+            )
             .filter((obj) => obj.price.trim().includes(filterPrice))
             .map((item, index) => {
               const { title, price, category, imageUrl, id } = item;
@@ -92,7 +97,7 @@ function Allproducts() {
                       />
                     </div>
                     <div className="px-4 pb-4 border-t border-gray-100">
-                      <p className="text-xs text-gray-500 mb-1">{category}</p>
+                      <p className="text-xs text-gray-500 mt-2 mb-1">{category}</p>
                       <h2
                         className="text-sm font-semibold text-gray-800 truncate"
                         style={{ color: mode === "dark" ? "#FFD814" : "" }}

@@ -11,7 +11,7 @@ import { firebaseDB } from "../../firebase/FirebaseConfig";
 
 function Cart() {
   const context = useData();
-  const { mode } = context;
+  const { mode, calcOffer } = context;
   const dispatch = useDispatch();
 
   const cartItems = useSelector((state) => state.cart);
@@ -32,7 +32,7 @@ function Cart() {
   useEffect(() => {
     let temp = 0;
     cartItems.forEach((cartItem) => {
-      temp = temp + parseInt(cartItem.price);
+      temp = Number(temp) + parseInt(calcOffer(cartItem.price));
     });
     setTotalAmount(temp);
     console.log(temp);
@@ -169,7 +169,13 @@ function Cart() {
                       className="mt-1 text-xs font-semibold text-gray-700 flex items-baseline "
                       style={{ color: mode === "dark" ? "white" : "" }}
                     >
-                      <FaRupeeSign />-{price}
+
+                      <div className="flex items-baseline gap-3">
+                        <p className="text-xl font-bold text-red-600 mt-1">
+                         ₹{calcOffer(Number(price))}
+                        </p>
+                        <p className="text-base font-semibold text-amber-600  line-through">₹{price}</p>
+                      </div>
                     </p>
                   </div>
                   <div className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">

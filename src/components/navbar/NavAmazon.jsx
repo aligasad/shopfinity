@@ -32,6 +32,7 @@ function Navbar() {
     filterPrice,
     setFilterPrice,
     address,
+    resetFilter,
   } = context;
 
   const [location, setLocation] = useState("");
@@ -65,13 +66,6 @@ function Navbar() {
   // cartItems data---------------------
   const cartItems = useSelector((state) => state.cart);
 
-  // Reset Filter function --------------------------------
-  function resetFilter() {
-    setSearchkey("");
-    setFilterPrice("");
-    setFilterType("");
-    window.scrollTo(0, 0);
-  }
   // got to top
   useEffect(() => {
     // window.scrollTo(0, 0);
@@ -125,6 +119,7 @@ function Navbar() {
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <div onClick={() => setOpen(false)} className="flow-root">
                     <Link
+                      onClick={resetFilter}
                       to={"/"}
                       className="-m-2 block p-2 font-medium text-gray-900 "
                       style={{ color: mode === "dark" ? "white" : "" }}
@@ -134,6 +129,7 @@ function Navbar() {
                   </div>
                   <div onClick={() => setOpen(false)} className="flow-root">
                     <Link
+                      onClick={resetFilter}
                       to={"/allproducts"}
                       className="-m-2 block p-2 font-medium text-gray-900 "
                       style={{ color: mode === "dark" ? "white" : "" }}
@@ -256,7 +252,7 @@ function Navbar() {
                 />
               </svg>
             </button>
-            <Link to="/" className="text-yellow-400 font-bold text-2xl">
+            <Link onClick={resetFilter} to="/" className="text-yellow-400 font-bold text-2xl">
               Amazon
             </Link>
             <div className="hidden md:flex flex-col leading-tight text-sm">
@@ -272,7 +268,6 @@ function Navbar() {
             <select
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}
-              
               className="bg-gray-200 text-black text-sm p-2 w-24 rounded-l-md outline-0 "
             >
               <option value="">Select</option>
@@ -284,7 +279,6 @@ function Navbar() {
               {[...new Set(product.map((item) => item.category))].map(
                 (item, idx) => (
                   <option
-                  
                     key={idx}
                     value={item.replace(/\s+/g, "").toLowerCase()}
                   >
@@ -453,19 +447,98 @@ function Navbar() {
               </span>
             </Link>
           )}
-         <Link to={'https://www.amazon.in/alm/storefront?almBrandId=ctnow&ref_=nav_cs_fresh'}> <span>Fresh</span> </Link>
-         <Link to={'https://www.amazon.in/minitv?ref_=nav_avod_desktop_topnav'}> <span>MX Player</span> </Link>
-         <Link to={'https://www.amazon.in/b/32702023031?node=32702023031&ld=AZINSOANavDesktop_T3&ref_=nav_cs_sell_T3'}> <span>Sell</span> </Link>
-         <Link to={'https://www.amazon.in/gp/bestsellers/?ref_=nav_cs_bestsellers'}> <span>Bestsellers</span> </Link>
-         <Link to={'https://www.amazon.in/deals?ref_=nav_cs_gb'}> <span>Today's Deals</span> </Link>
-         <Link to={'https://www.amazon.in/mobile-phones/b/?ie=UTF8&node=1389401031&ref_=nav_cs_mobiles'}> <span>Mobiles</span> </Link>
-         <Link to={'https://www.amazon.in/gp/browse.html?node=6648217031&ref_=nav_cs_fashion'}> <span>Fashion</span> </Link>
-         <Link to={'https://www.amazon.in/amazonprime?ref_=nav_cs_primelink_nonmember'}> <span className="font-semibold  text-amber-500">Prime</span> </Link>
-         <Link to={'https://www.amazon.in/gp/help/customer/display.html?nodeId=200507590&ref_=nav_cs_help'}> <span>Customer Service</span> </Link>
-         <Link to={'https://www.amazon.in/gp/new-releases/?ref_=nav_cs_newreleases'}> <span>New Releases</span> </Link>
-         <Link to={'https://www.amazon.in/electronics/b/?ie=UTF8&node=976419031&ref_=nav_cs_electronics'}> <span>Electronics</span> </Link>
-         <Link to={'https://www.amazon.in/Home-Kitchen/b/?ie=UTF8&node=976442031&ref_=nav_cs_home'}> <span>Home & Kitchen</span> </Link>
-         <Link to={'https://www.amazon.in/amazonpay/home?ref_=nav_cs_apay'}> <span>Amazon Pay</span> </Link>
+          <Link
+            to={
+              "https://www.amazon.in/alm/storefront?almBrandId=ctnow&ref_=nav_cs_fresh"
+            }
+          >
+            {" "}
+            <span>Fresh</span>{" "}
+          </Link>
+          <Link
+            to={"https://www.amazon.in/minitv?ref_=nav_avod_desktop_topnav"}
+          >
+            {" "}
+            <span>MX Player</span>{" "}
+          </Link>
+          <Link
+            to={
+              "https://www.amazon.in/b/32702023031?node=32702023031&ld=AZINSOANavDesktop_T3&ref_=nav_cs_sell_T3"
+            }
+          >
+            {" "}
+            <span>Sell</span>{" "}
+          </Link>
+          <Link
+            to={"https://www.amazon.in/gp/bestsellers/?ref_=nav_cs_bestsellers"}
+          >
+            {" "}
+            <span>Bestsellers</span>{" "}
+          </Link>
+          <Link to={"https://www.amazon.in/deals?ref_=nav_cs_gb"}>
+            {" "}
+            <span>Today's Deals</span>{" "}
+          </Link>
+          <Link
+            to={
+              "https://www.amazon.in/mobile-phones/b/?ie=UTF8&node=1389401031&ref_=nav_cs_mobiles"
+            }
+          >
+            {" "}
+            <span>Mobiles</span>{" "}
+          </Link>
+          <Link
+            to={
+              "https://www.amazon.in/gp/browse.html?node=6648217031&ref_=nav_cs_fashion"
+            }
+          >
+            {" "}
+            <span>Fashion</span>{" "}
+          </Link>
+          <Link
+            to={
+              "https://www.amazon.in/amazonprime?ref_=nav_cs_primelink_nonmember"
+            }
+          >
+            {" "}
+            <span className="font-semibold  text-amber-500">Prime</span>{" "}
+          </Link>
+          <Link
+            to={
+              "https://www.amazon.in/gp/help/customer/display.html?nodeId=200507590&ref_=nav_cs_help"
+            }
+          >
+            {" "}
+            <span>Customer Service</span>{" "}
+          </Link>
+          <Link
+            to={
+              "https://www.amazon.in/gp/new-releases/?ref_=nav_cs_newreleases"
+            }
+          >
+            {" "}
+            <span>New Releases</span>{" "}
+          </Link>
+          <Link
+            to={
+              "https://www.amazon.in/electronics/b/?ie=UTF8&node=976419031&ref_=nav_cs_electronics"
+            }
+          >
+            {" "}
+            <span>Electronics</span>{" "}
+          </Link>
+          <Link
+            to={
+              "https://www.amazon.in/Home-Kitchen/b/?ie=UTF8&node=976442031&ref_=nav_cs_home"
+            }
+          >
+            {" "}
+            <span>Home & Kitchen</span>{" "}
+          </Link>
+          <Link to={"https://www.amazon.in/amazonpay/home?ref_=nav_cs_apay"}>
+            {" "}
+            <span>Amazon Pay</span>{" "}
+          </Link>
         </div>
       </header>
     </div>

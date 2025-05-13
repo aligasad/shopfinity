@@ -228,8 +228,6 @@ function MyState({ children }) {
     }
   }, []);
 
-
-  
   // =================================================
   // Offer on Product Function----------------------
   const calcOffer = (price) => {
@@ -248,6 +246,12 @@ function MyState({ children }) {
   };
 
   // =================================================
+
+  function resetFilter() {
+    setSearchkey("");
+    setFilterPrice("");
+    setFilterType("");
+  }
 
   return (
     <MyContext.Provider
@@ -272,7 +276,8 @@ function MyState({ children }) {
         filterPrice,
         setFilterPrice,
         address,
-        calcOffer
+        calcOffer,
+        resetFilter
       }}
     >
       {children}

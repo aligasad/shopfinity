@@ -12,13 +12,9 @@ function Filter() {
     filterPrice,
     setFilterPrice,
     product,
+    resetFilter
   } = context;
 
-  function resetFilter() {
-    setSearchkey("");
-    setFilterPrice("");
-    setFilterType("");
-  }
 
   return (
 
