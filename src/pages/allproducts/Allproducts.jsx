@@ -72,6 +72,7 @@ function Allproducts() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  
 
   return (
     <section className="text-gray-600 body-font">
@@ -82,7 +83,7 @@ function Allproducts() {
             class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900"
             style={{ color: mode === "dark" ? "white" : "" }}
           >
-            Our Latest Collection
+            All Collection
           </h1>
           <div class="h-1 w-20 bg-yellow-600 rounded"></div>
         </div>

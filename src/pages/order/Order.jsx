@@ -16,7 +16,18 @@ function Order() {
 
   return (
     <>
-      {loading && <Loader />}
+
+    <div
+      className="h-full lg:h-screen bg-gray-100 pt-5 "
+      style={{
+        backgroundColor: mode === "dark" ? "#282c34" : "",
+        color: mode === "dark" ? "white" : "",
+      }}
+    >
+      <h1 className="mb-10 text-center text-2xl font-bold">Orders</h1>
+      <div className="mx-auto max-w-[100%] justify-center px-2 md:flex  xl:px-0 ">
+        <div className="rounded-lg max-h-[80vh] overflow-y-auto ">
+          {loading && <Loader />}
       {order.length > 0 ? (
         <>
           <div className=" h-full pt-10">
@@ -96,6 +107,13 @@ function Order() {
       ) : (
         <NoOrderFound />
       )}
+        </div>
+
+        
+      </div>
+    </div>
+
+      
     </>
   );
 }

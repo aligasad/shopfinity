@@ -120,11 +120,13 @@ function Navbar() {
                 <div className="flex px-4 pb-2 pt-28">
                   <button
                     type="button"
-                    className="-m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400"
+                    className="-m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-600"
                     onClick={() => setOpen(false)}
                   >
-                    <span className="sr-only">Close menu</span>
-                    <RxCross2 />
+                    <div className="flex items-center gap-1">
+                      <span className="">Close menu</span>
+                      <RxCross2 />
+                    </div>
                   </button>
                 </div>
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
@@ -132,30 +134,30 @@ function Navbar() {
                     <Link
                       onClick={resetFilter}
                       to={"/"}
-                      className="-m-2 block p-2 font-medium text-gray-900 "
+                      className="font-medium  "
                       style={{ color: mode === "dark" ? "white" : "" }}
                     >
-                      Home
+                      <li className="mb-2 list-none ">Home</li>
                     </Link>
                   </div>
                   <ul className="mt-[-25px]">
                     <div onClick={() => setOpen(false)}>
                       <Link
                         to={"/allproducts"}
-                        className=" block font-medium text-gray-900"
+                        className=" block font-medium "
                         style={{ color: mode === "dark" ? "white" : "" }}
                       >
-                        <li>All Products</li>{" "}
+                        <li className="mb-2">All Products</li>{" "}
                       </Link>
                     </div>
 
                     <div onClick={() => setOpen(false)}>
                       <Link
                         to={"orders"}
-                        className="-m-2 block p-2 font-medium text-gray-900"
+                        className=" font-medium "
                         style={{ color: mode === "dark" ? "white" : "" }}
                       >
-                        <li>Orders</li>{" "}
+                        <li className="mb-2">Orders</li>{" "}
                       </Link>
                     </div>
 
@@ -177,58 +179,40 @@ function Navbar() {
                     <div onClick={() => setOpen(false)}>
                       <Link
                         to={"/mobile"}
-                        className="-m-2 block p-2 font-medium text-gray-900"
+                        className=" font-medium "
                         style={{ color: mode === "dark" ? "white" : "" }}
                       >
-                        <li>Mobile Phone</li>{" "}
+                        <li className="mb-2 mt-2">Mobile Phone</li>{" "}
                       </Link>
                     </div>
                     <div onClick={() => setOpen(false)}>
                       <Link
                         to={"/kids"}
-                        className=" font-medium text-gray-900"
+                        className=" font-medium "
                         style={{ color: mode === "dark" ? "white" : "" }}
                       >
-                        <li>Kids</li>{" "}
+                        <li className="mb-2">Kids</li>{" "}
                       </Link>
                     </div>
                     <div onClick={() => setOpen(false)}>
                       <Link
                         to={"/cloths"}
-                        className=" font-medium text-gray-900"
+                        className=" font-medium "
                         style={{ color: mode === "dark" ? "white" : "" }}
                       >
-                        <li>Cloths</li>{" "}
+                        <li className="mb-2">Cloths</li>{" "}
                       </Link>
                     </div>
 
-                    {/*----------------- FROM HERE YOU CAN ADD NAV SECTION----------------------- */}
-                    {/* <div onClick={() => setOpen(false)}>
-                      <Link
-                        to={""}
-                        className=" font-medium text-gray-900"
-                        style={{ color: mode === "dark" ? "white" : "" }}
-                      >
-                        <li>Appliance</li>{" "}
-                      </Link>
-                    </div>
-                    <div onClick={() => setOpen(false)}>
-                      <Link
-                        to={""}
-                        className="-m-2 block p-2 font-medium text-gray-900"
-                        style={{ color: mode === "dark" ? "white" : "" }}
-                      >
-                        <li>Appliance</li>{" "}
-                      </Link>
-                    </div> */}
+                    
                     {user?.user?.email === "asadalam4291@gmail.com" ? (
                       <div onClick={() => setOpen(false)}>
                         <Link
                           to={"/dashboard"}
-                          className="-m-2 block p-2 font-medium text-gray-900"
+                          className=" font-medium "
                           style={{ color: mode === "dark" ? "white" : "" }}
                         >
-                          <li className="text-red-600">ADMINE</li>{" "}
+                          <li className="mb-2 text-amber-600">ADMINE</li>{" "}
                         </Link>
                       </div>
                     ) : (
@@ -239,17 +223,17 @@ function Navbar() {
                         <Link
                           to={"/"}
                           onClick={handleLogout}
-                          className="-m-2 block p-2 font-medium text-gray-900"
+                          className=" font-medium "
                           style={{ color: mode === "dark" ? "yellow" : "" }}
                         >
-                          <li>Logout</li>{" "}
+                          <li className="mb-2">Logout</li>{" "}
                         </Link>
                       </div>
                     ) : (
                       <div onClick={() => setOpen(false)}>
                         <Link
                           to={"/login"}
-                          className="-m-2 block p-2 font-medium text-gray-900"
+                          className=" font-medium  mb-1"
                           style={{ color: mode === "dark" ? "red" : "" }}
                         >
                           <li>Login</li>{" "}
@@ -622,9 +606,7 @@ function Navbar() {
             {" "}
             <span>Cloths</span>{" "}
           </Link>
-          <Link
-            to={"/homekitchen"}
-          >
+          <Link to={"/homekitchen"}>
             {" "}
             <span>Home & Kitchen</span>{" "}
           </Link>
