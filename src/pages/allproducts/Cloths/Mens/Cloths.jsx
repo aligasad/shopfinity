@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useData } from "../../../context/data/MyState.jsx";
-import { addToCart } from "../../../redux/CartSlice";
+import { useData } from "../../../../context/data/MyState.jsx";
+import { addToCart } from "../../../../redux/CartSlice.jsx";
 import { toast } from "react-toastify";
-import Filter from "../../../components/filter/Filter";
+import Filter from "../../../../components/filter/Filter.jsx";
 import { FaHeart } from "react-icons/fa6";
-import { addToWishlist } from "../../../redux/WishlistSlice";
+import { addToWishlist } from "../../../../redux/WishlistSlice.jsx";
 import { motion } from "framer-motion";
 
 function Cloths() {
@@ -91,7 +91,7 @@ function Cloths() {
                   class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900"
                   style={{ color: mode === "dark" ? "white" : "" }}
                 >
-                  Our Latest Kids Collection
+                  Men's Collection
                 </h1>
                 <div class="h-1 w-20 bg-yellow-600 rounded"></div>
               </div>

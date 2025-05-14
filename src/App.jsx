@@ -23,7 +23,7 @@ import ProtectedRoute from "./components/protector/ProtectedRoute.jsx";
 import Allproducts from "./pages/allproducts/Allproducts.jsx";
 import Kids from "./pages/allproducts/Kids/Kids.jsx";
 import Mobile from "./pages/allproducts/Mobile/Mobile.jsx";
-import Cloths from "./pages/allproducts/Cloths/Cloths.jsx";
+import Cloths from "./pages/allproducts/Cloths/Mens/Cloths.jsx";
 import HomeKitchen from "./pages/allproducts/Home & Kitchen/HomeKitchen.jsx";
 
 function App() {

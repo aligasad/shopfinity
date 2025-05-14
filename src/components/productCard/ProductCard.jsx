@@ -89,7 +89,7 @@ function ProductCard() {
 
         <div className="flex flex-wrap -m-4">
           {product
-            .filter((item) => item.title.toLowerCase().includes(searchkey))
+            .filter((item) => item.title.toLowerCase().includes(searchkey.trim().toLowerCase()))
             .filter((item) =>
               item.category
                 .replace(/\s+/g, "")
