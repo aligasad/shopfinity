@@ -156,7 +156,7 @@ function Cart() {
       <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0 ">
         <div className="rounded-lg md:w-2/3 max-h-[80vh] overflow-y-auto ">
           {cartItems.length > 0 ? cartItems.map((item, index) => {
-            const { title, price, imageUrl, description } = item;
+            const { title, price, imageUrl, description, id } = item;
             return (
               <div
                 key={index}
@@ -168,8 +168,9 @@ function Cart() {
               >
                 <img
                   src={imageUrl}
+                  onClick={() => window.location.href = `/productinfo/${id}`}
                   alt="product-image"
-                  className="w-full rounded-lg sm:w-40"
+                  className="w-full rounded-lg sm:w-40 cursor-pointer"
                 />
                 <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
                   <div className="mt-5 sm:mt-0">

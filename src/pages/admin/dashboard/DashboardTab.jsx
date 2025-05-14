@@ -24,9 +24,9 @@ function DashboardTab() {
     window.location.href = "/addproduct";
   };
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
 
   return (
     <>

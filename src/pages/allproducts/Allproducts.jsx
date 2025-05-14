@@ -99,6 +99,7 @@ function Allproducts() {
             .filter((obj) => obj.price.trim().includes(filterPrice))
             .map((item, index) => {
               const { title, price, category, imageUrl, id } = item;
+              console.log("ID CARD", id);
               return (
                 <div
                   key={index}
@@ -123,7 +124,10 @@ function Allproducts() {
                       />
                     </div>
                     <div className="px-4 pb-4 border-t border-gray-100">
-                      <p className="text-xs text-gray-500 mt-2 mb-1">
+                      <p
+                        className="text-xs text-gray-500 mt-2 mb-1"
+                        style={{ color: mode === "dark" ? "white" : "" }}
+                      >
                         {category}
                       </p>
                       <h2
@@ -133,10 +137,16 @@ function Allproducts() {
                         {title}
                       </h2>
                       <div className="flex items-baseline gap-1">
-                        <p className="text-base font-bold text-red-600 mt-1">
+                        <p
+                          className="text-base font-bold text-red-600 mt-1"
+                          style={{ color: mode === "dark" ? "#D97706" : "" }}
+                        >
                           ₹{calcOffer(Number(price))}
                         </p>
-                        <p className="text-[0.92rem] font-semibold text-amber-600  line-through">
+                        <p
+                          className="text-[0.92rem] font-semibold text-gray-600  line-through"
+                          style={{ color: mode === "dark" ? "white" : "" }}
+                        >
                           ₹{price}
                         </p>
                       </div>

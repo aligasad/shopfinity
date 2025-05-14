@@ -623,10 +623,10 @@ function Navbar() {
             <span>Cloths</span>{" "}
           </Link>
           <Link
-            to={"https://www.amazon.in/gp/bestsellers/?ref_=nav_cs_bestsellers"}
+            to={"/homekitchen"}
           >
             {" "}
-            <span>Bestsellers</span>{" "}
+            <span>Home & Kitchen</span>{" "}
           </Link>
           <Link to={"https://www.amazon.in/deals?ref_=nav_cs_gb"}>
             {" "}

@@ -135,15 +135,29 @@ function ProductCard() {
                     </div>
 
                     <div className="p-4 border-t border-gray-200 dark:border-gray-600">
-                      <h1 className="text-lg font-bold text-gray-800 dark:text-yellow-300">
+                      <h1
+                        className="text-lg font-bold text-gray-800 dark:text-amber-600"
+                        style={{ color: mode === "dark" ? "#DC143C" : "" }}
+                      >
                         {title.slice(0, 20)}...
                       </h1>
-                      <p className="text-gray-500 text-sm">{category}</p>
+                      <p
+                        className="text-gray-500 text-sm"
+                        style={{ color: mode === "dark" ? "white" : "" }}
+                      >
+                        {category}
+                      </p>
                       <div className="flex items-baseline gap-2 mb-2">
-                        <p className="text-base font-bold text-red-600 mt-1">
+                        <p
+                          className="text-base font-bold text-red-600 mt-1"
+                          style={{ color: mode === "dark" ? "#FFD814" : "" }}
+                        >
                           ₹{calcOffer(Number(price))}
                         </p>
-                        <p className="text-sm font-semibold text-gray-500 line-through">
+                        <p
+                          className="text-sm font-semibold text-gray-500 line-through"
+                          style={{ color: mode === "dark" ? "white" : "" }}
+                        >
                           ₹{price}
                         </p>
                       </div>
@@ -152,6 +166,10 @@ function ProductCard() {
                         <button
                           onClick={() => addCart(item)}
                           className="flex-1 py-2 mr-2 text-sm font-semibold rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 transition duration-300 cursor-pointer"
+                          style={{
+                            backgroundColor: mode === "dark" ? "#DC143C" : "",
+                            color: mode === "dark" ? "black" : "",
+                          }}
                         >
                           Add to Cart
                         </button>

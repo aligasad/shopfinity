@@ -10,9 +10,9 @@ function Dashboard() {
   let productLength = product.length;
   let usersLength = users.length;
 
-  useEffect(() => {
-      window.scrollTo(0, 0);
-    }, [])
+  // useEffect(() => {
+  //     window.scrollTo(0, 0);
+  //   }, [])
 
 
   return (
