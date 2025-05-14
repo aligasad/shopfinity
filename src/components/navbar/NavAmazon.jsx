@@ -33,8 +33,10 @@ function Navbar() {
     setFilterPrice,
     address,
     resetFilter,
+    pageType,
+    setPageType,
   } = context;
-
+  console.log("PAGE TYPE", pageType);
   const [location, setLocation] = useState("");
   useEffect(() => {
     const fullAddress = address || "";
@@ -67,11 +69,19 @@ function Navbar() {
   const cartItems = useSelector((state) => state.cart);
   const wishListitems = useSelector((state) => state.wishlist);
 
+  // Finding all types-------------------------------------------
+  const [types, setTypes] = useState([]);
+  function getTypes() {
+    const typo = [...new Set(product.map((item) => item.type))];
+    // const typo1 = [...new Set(product.map((item) => item.type))];
+    setTypes(typo);
+  }
   // got to top
   useEffect(() => {
-    // window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
     // window.scrollTo(0, window.innerHeight * 0.4);
-  }, [searchkey, filterType]);
+    getTypes();
+  }, [searchkey, filterType, product]);
 
   return (
     <div className="bg-white sticky top-0 z-50 ">
@@ -128,17 +138,135 @@ function Navbar() {
                       Home
                     </Link>
                   </div>
-                  <div onClick={() => setOpen(false)} className="flow-root">
+                  <ul className="mt-[-25px]">
+                    <div onClick={() => setOpen(false)}>
+                      <Link
+                        to={"/allproducts"}
+                        className=" block font-medium text-gray-900"
+                        style={{ color: mode === "dark" ? "white" : "" }}
+                      >
+                        <li>All Products</li>{" "}
+                      </Link>
+                    </div>
+
+                    <div onClick={() => setOpen(false)}>
+                      <Link
+                        to={"orders"}
+                        className="-m-2 block p-2 font-medium text-gray-900"
+                        style={{ color: mode === "dark" ? "white" : "" }}
+                      >
+                        <li>Orders</li>{" "}
+                      </Link>
+                    </div>
+
+                    <div onClick={() => setOpen(false)}>
+                      <Link to="/wishlist" className="flex items-center gap-2">
+                        <li className="font-semibold">Wishlist </li>
+                        <p className="relative flex items-center">
+                          <AiFillHeart
+                            title="Your Wishlist"
+                            className="text-2xl text-amber-700"
+                          />
+                          <span className="absolute top-[-10px] right-[-10px] bg-amber-500 font-bold text-black rounded-full w-5 h-5 flex justify-center items-center text-xs">
+                            {wishListitems.length}
+                          </span>
+                        </p>
+                      </Link>
+                    </div>
+
+                    <div onClick={() => setOpen(false)}>
+                      <Link
+                        to={"/mobile"}
+                        className="-m-2 block p-2 font-medium text-gray-900"
+                        style={{ color: mode === "dark" ? "white" : "" }}
+                      >
+                        <li>Mobile Phone</li>{" "}
+                      </Link>
+                    </div>
+                    <div onClick={() => setOpen(false)}>
+                      <Link
+                        to={"/kids"}
+                        className=" font-medium text-gray-900"
+                        style={{ color: mode === "dark" ? "white" : "" }}
+                      >
+                        <li>Kids</li>{" "}
+                      </Link>
+                    </div>
+                    <div onClick={() => setOpen(false)}>
+                      <Link
+                        to={"/cloths"}
+                        className=" font-medium text-gray-900"
+                        style={{ color: mode === "dark" ? "white" : "" }}
+                      >
+                        <li>Cloths</li>{" "}
+                      </Link>
+                    </div>
+
+                    {/*----------------- FROM HERE YOU CAN ADD NAV SECTION----------------------- */}
+                    {/* <div onClick={() => setOpen(false)}>
+                      <Link
+                        to={""}
+                        className=" font-medium text-gray-900"
+                        style={{ color: mode === "dark" ? "white" : "" }}
+                      >
+                        <li>Appliance</li>{" "}
+                      </Link>
+                    </div>
+                    <div onClick={() => setOpen(false)}>
+                      <Link
+                        to={""}
+                        className="-m-2 block p-2 font-medium text-gray-900"
+                        style={{ color: mode === "dark" ? "white" : "" }}
+                      >
+                        <li>Appliance</li>{" "}
+                      </Link>
+                    </div> */}
+                    {user?.user?.email === "asadalam4291@gmail.com" ? (
+                      <div onClick={() => setOpen(false)}>
+                        <Link
+                          to={"/dashboard"}
+                          className="-m-2 block p-2 font-medium text-gray-900"
+                          style={{ color: mode === "dark" ? "white" : "" }}
+                        >
+                          <li className="text-red-600">ADMINE</li>{" "}
+                        </Link>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                    {user ? (
+                      <div onClick={() => setOpen(false)}>
+                        <Link
+                          to={"/"}
+                          onClick={handleLogout}
+                          className="-m-2 block p-2 font-medium text-gray-900"
+                          style={{ color: mode === "dark" ? "yellow" : "" }}
+                        >
+                          <li>Logout</li>{" "}
+                        </Link>
+                      </div>
+                    ) : (
+                      <div onClick={() => setOpen(false)}>
+                        <Link
+                          to={"/login"}
+                          className="-m-2 block p-2 font-medium text-gray-900"
+                          style={{ color: mode === "dark" ? "red" : "" }}
+                        >
+                          <li>Login</li>{" "}
+                        </Link>
+                      </div>
+                    )}
+                  </ul>
+
+                  {/* <div onClick={() => setOpen(false)} className="flow-root">
                     <Link
                       onClick={resetFilter}
                       to={"/allproducts"}
-                      className="-m-2 block p-2 font-medium text-gray-900 "
+                      className="-m-2 block p-2 font-medium text-gray-900"
                       style={{ color: mode === "dark" ? "white" : "" }}
-                    >
-                      All Products
-                    </Link>
-                  </div>
-                  <div onClick={() => setOpen(false)} className="flow-root">
+                    ></Link>
+                  </div> */}
+                  {/* <div onClick={() => setOpen(false)} className="flow-root">
                     <Link
                       to={"/orders"}
                       style={{ color: mode === "dark" ? "white" : "" }}
@@ -146,23 +274,23 @@ function Navbar() {
                     >
                       Order
                     </Link>
-                  </div>
-                  <div onClick={() => setOpen(false)} className="flow-root">
-                    <Link
-                        to="/wishlist"
-                        className="flex items-center gap-2"
-                      >
-                        Wishlist{" "}
-                        <p className="relative flex items-center">
-                          <AiFillHeart title="Your Wishlist" className="text-2xl text-amber-700" />
-                          <span className="absolute top-[-10px] right-[-10px] bg-amber-500 font-bold text-black rounded-full w-5 h-5 flex justify-center items-center text-xs">
-                            {wishListitems.length}
-                          </span>
-                        </p>
-                      </Link>
-                  </div>
+                  </div> */}
+                  {/* <div onClick={() => setOpen(false)} className="flow-root">
+                    <Link to="/wishlist" className="flex items-center gap-2">
+                      Wishlist{" "}
+                      <p className="relative flex items-center">
+                        <AiFillHeart
+                          title="Your Wishlist"
+                          className="text-2xl text-amber-700"
+                        />
+                        <span className="absolute top-[-10px] right-[-10px] bg-amber-500 font-bold text-black rounded-full w-5 h-5 flex justify-center items-center text-xs">
+                          {wishListitems.length}
+                        </span>
+                      </p>
+                    </Link>
+                  </div> */}
 
-                  {user?.user?.email === "asadalam4291@gmail.com" ? (
+                  {/* {user?.user?.email === "asadalam4291@gmail.com" ? (
                     <div onClick={() => setOpen(false)} className="flow-root">
                       <Link
                         to={"/dashboard"}
@@ -174,8 +302,8 @@ function Navbar() {
                     </div>
                   ) : (
                     ""
-                  )}
-                  {user ? (
+                  )} */}
+                  {/* {user ? (
                     <div onClick={() => setOpen(false)} className="flow-root">
                       <Link
                         to={"/"}
@@ -196,18 +324,26 @@ function Navbar() {
                         Login
                       </Link>
                     </div>
-                  )}
+                  )} */}
 
                   <div className="flow-root">
                     <Link
                       to={"/"}
                       className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
                     >
-                      <img
-                        className="inline-block w-10 h-10 rounded-full"
-                        src="https://overreacted.io/static/profile-pic-c715447ce38098828758e525a1128b87.jpg"
-                        alt="Dan_Abromov"
-                      />{" "}
+                      <div className="flex items-center gap-1">
+                        <img
+                          className="inline-block w-10 h-10 rounded-full"
+                          src="https://up.yimg.com/ib/th?id=OIP.GHGGLYe7gDfZUzF_tElxiQHaHa&pid=Api&rs=1&c=1&qlt=95&w=111&h=111"
+                          alt="Dan_Abromov"
+                        />
+                        <p
+                          className=""
+                          style={{ color: mode === "dark" ? "white" : "" }}
+                        >
+                          {user?.user?.email}
+                        </p>
+                      </div>
                     </Link>
                   </div>
                 </div>
@@ -287,8 +423,7 @@ function Navbar() {
               onChange={(e) => setFilterType(e.target.value)}
               className="bg-gray-200 text-black text-sm p-2 w-24 rounded-l-md outline-0 "
             >
-              <option value="">Select</option>
-              <option value="">All</option>
+              <option value="">All Products</option>
               {/* {product.map((item, idx) => {
                 return <option key={idx} value={item.category.replace(/\s+/g, '').toLowerCase()}>{item.category}</option>;
               })} */}
@@ -420,7 +555,10 @@ function Navbar() {
                       >
                         Wishlist{" "}
                         <p className="relative flex items-center">
-                          <AiFillHeart title="Your Wishlist" className="text-xl text-amber-700" />
+                          <AiFillHeart
+                            title="Your Wishlist"
+                            className="text-xl text-amber-700"
+                          />
                           <span className="absolute top-[-8px] right-[-8px] bg-amber-500 font-bold text-black rounded-full w-4 h-4 flex justify-center items-center text-xs">
                             {wishListitems.length}
                           </span>
@@ -464,27 +602,25 @@ function Navbar() {
               </span>
             </Link>
           )}
-          <Link
-            to={
-              "https://www.amazon.in/alm/storefront?almBrandId=ctnow&ref_=nav_cs_fresh"
-            }
-          >
+          <Link to={"/"} onClick={resetFilter}>
             {" "}
-            <span>Fresh</span>{" "}
+            <span className="text-amber-500 font-bold hover:text-green-500">
+              Home
+            </span>{" "}
           </Link>
-          <Link
-            to={"https://www.amazon.in/minitv?ref_=nav_avod_desktop_topnav"}
-          >
+
+          <Link to={"/kids"} onClick={resetFilter}>
             {" "}
-            <span>MX Player</span>{" "}
+            <span>Kids</span>{" "}
           </Link>
-          <Link
-            to={
-              "https://www.amazon.in/b/32702023031?node=32702023031&ld=AZINSOANavDesktop_T3&ref_=nav_cs_sell_T3"
-            }
-          >
+
+          <Link to={"/mobile"} onClick={resetFilter}>
             {" "}
-            <span>Sell</span>{" "}
+            <span>Mobile</span>{" "}
+          </Link>
+          <Link to={"/cloths"} onClick={resetFilter}>
+            {" "}
+            <span>Cloths</span>{" "}
           </Link>
           <Link
             to={"https://www.amazon.in/gp/bestsellers/?ref_=nav_cs_bestsellers"}

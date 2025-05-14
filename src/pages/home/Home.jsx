@@ -9,9 +9,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, deleteFromCart } from "../../redux/CartSlice";
 import { Link } from "react-router-dom";
 import { useData } from "../../context/data/MyState";
+import { motion } from "framer-motion";
 
 function Home() {
-  const {resetFilter} = useData();
+  const { resetFilter } = useData();
   // got to top
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -19,17 +20,38 @@ function Home() {
 
   return (
     <>
-    
-      <HeroSection />
+      <motion.div
+        initial={{ opacity: 0, x: -100 }} // start off-screen to the left
+        animate={{ opacity: 1, x: 0 }} // move to center
+        exit={{ opacity: 0 }} // exit off-screen to the right
+        transition={{ duration: 1 }}
+      >
+        <HeroSection />
+      </motion.div>
+
       <Filter />
-      <ProductCard />
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 1 }}
+        onAnimationComplete={() => setIsFirstVisit(false)} // Remove animation after it's done
+      >
+        <ProductCard />
+      </motion.div>
+
       {/* <ProductApi /> */}
       <div className="flex justify-center md:-mt-10 mb-4 ">
-        <Link to={'/allproducts'}>
-          <button onClick={resetFilter} className=' bg-gray-300 px-5 py-2 rounded-xl'>See more</button>
+        <Link to={"/allproducts"}>
+          <button
+            onClick={resetFilter}
+            className=" bg-gray-300 px-5 py-2 rounded-xl cursor-pointer"
+          >
+            See more
+          </button>
         </Link>
       </div>
-      
+
       <Track />
       <Testimonial />
     </>

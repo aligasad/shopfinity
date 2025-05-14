@@ -187,6 +187,7 @@ function MyState({ children }) {
   }, []);
 
   const [searchkey, setSearchkey] = useState("");
+  const [searchkey1, setSearchkey1] = useState("");
   const [filterType, setFilterType] = useState("");
   const [filterPrice, setFilterPrice] = useState("");
 
@@ -194,9 +195,7 @@ function MyState({ children }) {
   const [location, setLocation] = useState({ lat: null, lon: null });
   const [address, setAddress] = useState(null);
   const [error, setError] = useState(null);
-
   const API_KEY = "3818f79df26b48559714cb5d0ecc5bfe";
-
   useEffect(() => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
@@ -233,6 +232,10 @@ function MyState({ children }) {
     }
   }, []);
 
+  // =======================FINDING PAGE============================
+  const [pageType, setPageType] = useState("");
+  // ================================================================
+
   // =================================================
   // Offer on Product Function----------------------
   const calcOffer = (price) => {
@@ -249,7 +252,6 @@ function MyState({ children }) {
     const discountedPrice = price - price * discount;
     return discountedPrice.toFixed(2);
   };
-  
 
   // =================================================
 
@@ -258,6 +260,9 @@ function MyState({ children }) {
     setFilterPrice("");
     setFilterType("");
   }
+
+  // =============FOR ANIMATION{framer motion}================
+
 
 
   return (
@@ -278,6 +283,8 @@ function MyState({ children }) {
         users,
         searchkey,
         setSearchkey,
+        searchkey1,
+        setSearchkey1,
         filterType,
         setFilterType,
         filterPrice,
@@ -285,6 +292,8 @@ function MyState({ children }) {
         address,
         calcOffer,
         resetFilter,
+        pageType,
+        setPageType,
       }}
     >
       {children}

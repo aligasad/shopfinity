@@ -79,7 +79,7 @@ function Login() {
             type="submit"
             className="w-full bg-yellow-400 font-semibold text-black py-2 rounded hover:bg-yellow-500"
           >
-            Register
+            Login
           </button>
           <p className="mt-4 text-center text-white">
             Don't have an account?{" "}

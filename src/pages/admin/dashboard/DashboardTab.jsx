@@ -118,6 +118,9 @@ function DashboardTab() {
                           Category
                         </th>
                         <th scope="col" className="px-6 py-3">
+                          Type
+                        </th>
+                        <th scope="col" className="px-6 py-3">
                           Date
                         </th>
                         <th scope="col" className="px-6 py-3">
@@ -131,6 +134,7 @@ function DashboardTab() {
                         price,
                         imageUrl,
                         category,
+                        type,
                         description,
                         date,
                       } = item;
@@ -173,6 +177,12 @@ function DashboardTab() {
                               style={{ color: mode === "dark" ? "white" : "" }}
                             >
                               {category}
+                            </td>
+                            <td
+                              className="px-6 py-4 text-black "
+                              style={{ color: mode === "dark" ? "white" : "" }}
+                            >
+                              {type}
                             </td>
                             <td
                               className="px-6 py-4 text-black "

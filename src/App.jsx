@@ -3,11 +3,12 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import Layout from "./components/layout/Layout";
 import Home from "./pages/home/Home.jsx";
 import Order from "./pages/order/Order.jsx";
 import Cart from "./pages/cart/Cart.jsx";
-import Wishlist from './pages/wishlist/Wishlist.jsx';
+import Wishlist from "./pages/wishlist/Wishlist.jsx";
 import Dashboard from "./pages/admin/dashboard/Dashboard.jsx";
 import NoPage from "./pages/nopage/NoPage.jsx";
 import MyState from "./context/data/MyState.jsx";
@@ -20,6 +21,9 @@ import { ToastContainer, Bounce } from "react-toastify";
 import AuthProvider from "./components/protector/AuthContext.jsx";
 import ProtectedRoute from "./components/protector/ProtectedRoute.jsx";
 import Allproducts from "./pages/allproducts/Allproducts.jsx";
+import Kids from "./pages/allproducts/Kids/Kids.jsx";
+import Mobile from "./pages/allproducts/Mobile/Mobile.jsx";
+import Cloths from "./pages/allproducts/Cloths/Cloths.jsx";
 
 function App() {
   const router = createBrowserRouter([
@@ -49,12 +53,12 @@ function App() {
           ),
         },
         {
-          path: '/wishlist',
+          path: "/wishlist",
           element: (
             <ProtectedRoute>
               <Wishlist />
             </ProtectedRoute>
-          )
+          ),
         },
         {
           path: "/dashboard",
@@ -81,6 +85,18 @@ function App() {
           element: <Allproducts />,
         },
         {
+          path: "/kids",
+          element: <Kids />,
+        },
+        {
+          path: "/cloths",
+          element: <Cloths />,
+        },
+        {
+          path: "/mobile",
+          element: <Mobile />,
+        },
+        {
           path: "/addproduct",
           element: (
             <ProtectedRouteForAdmin>
@@ -104,17 +120,19 @@ function App() {
     },
   ]);
   return (
-    <AuthProvider>
-      <MyState>
-        <RouterProvider router={router} />
-        <ToastContainer
-          position="top-center"
-          autoClose={1000}
-          theme="dark"
-          transition={Bounce}
-        />
-      </MyState>
-    </AuthProvider>
+    <AnimatePresence mode="wait">
+      <AuthProvider>
+        <MyState>
+          <RouterProvider router={router} />
+          <ToastContainer
+            position="top-center"
+            autoClose={1000}
+            theme="dark"
+            transition={Bounce}
+          />
+        </MyState>
+      </AuthProvider>
+    </AnimatePresence>
   );
 }
 

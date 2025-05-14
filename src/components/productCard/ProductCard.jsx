@@ -124,10 +124,11 @@ function ProductCard() {
                       onClick={() =>
                         (window.location.href = `/productinfo/${id}`)
                       }
-                      className="flex justify-center overflow-hidden cursor-pointer"
+                      className="flex justify-center items-center p-4"
                     >
                       <img
-                        className="rounded-t-xl w-full h-64 object-top object-cover hover:scale-105 transition-transform duration-300"
+                        className="h-48 object-contain transition-transform rounded-md duration-300 
+                        hover:scale-110 md:hover:scale-135 cursor-pointer"
                         src={imageUrl}
                         alt="product"
                       />
@@ -150,7 +151,7 @@ function ProductCard() {
                       <div className="flex items-center justify-between mt-4">
                         <button
                           onClick={() => addCart(item)}
-                          className="flex-1 py-2 mr-2 text-sm font-semibold rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 transition duration-300"
+                          className="flex-1 py-2 mr-2 text-sm font-semibold rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 transition duration-300 cursor-pointer"
                         >
                           Add to Cart
                         </button>
@@ -158,9 +159,9 @@ function ProductCard() {
                         {/* Wishlist Button */}
                         <button
                           onClick={() => addWishlist(item)}
-                          className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 grid place-items-center dark:bg-gray-700 dark:hover:bg-gray-600 transition"
+                          className="p-2 rounded-full bg-gray-100 hover:bg-green-200 grid place-items-center dark:bg-gray-700 dark:hover:bg-green-600 transition cursor-pointer"
                         >
-                          <FaHeart className="text-xl text-amber-400" />
+                          <FaHeart className="text-xl text-amber-400 hover:text-red-600" />
                         </button>
                       </div>
                     </div>
