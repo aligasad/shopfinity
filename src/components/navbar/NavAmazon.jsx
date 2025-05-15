@@ -6,13 +6,14 @@ import { MdLogout } from "react-icons/md";
 import { FaAngleDown } from "react-icons/fa";
 import { FiSun } from "react-icons/fi";
 import { Link, Links, useNavigate } from "react-router-dom";
+import { Home, User, Layers, ShoppingCart, Menu, X } from "lucide-react";
 import {
   Dialog,
   DialogPanel,
   Transition,
   TransitionChild,
 } from "@headlessui/react";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { auth } from "../../firebase/FirebaseConfig";
 import { toast } from "react-toastify";
@@ -83,279 +84,316 @@ function Navbar() {
     getTypes();
   }, [searchkey, filterType, product]);
 
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(true);
+  // const [lastScrollY, setLastScrollY] = useState(0);
+
+  // ----------------{FOR BOTTOM MENU WILL HIDE WHEN WE SCROLL DOWN}-----------------------------
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const currentScrollY = window.scrollY;
+
+  //     if (menuOpen === true) {
+  //       if (currentScrollY > lastScrollY && currentScrollY > 50) {
+  //         setShowNavbar(false); // Scrolling down
+  //       } else {
+  //         setShowNavbar(true); // Scrolling up
+  //       }
+  //     }
+
+  //     setLastScrollY(currentScrollY);
+  //   };
+
+  //   window.addEventListener("scroll", handleScroll);
+
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, [menuOpen, lastScrollY]);
+
+  // // Lock body scroll when menu is open
+  // useEffect(() => {
+  //   if (menuOpen) {
+  //     document.body.style.overflow = "hidden";
+  //   } else {
+  //     document.body.style.overflow = "auto";
+  //   }
+  // }, [menuOpen]);
+
   return (
     <div className="bg-white sticky top-0 z-50 ">
       {/* Mobile menu */}
-      <Transition show={open} as={Fragment}>
-        <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
-          <TransitionChild
-            as={Fragment}
-            enter="transition-opacity ease-linear duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="transition-opacity ease-linear duration-300"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
+      {menuOpen && (
+        <div className="fixed top-0 right-0 z-50 h-full flex">
+          <div
+            className="flex-grow bg-black bg-opacity-40"
+            onClick={() => setMenuOpen(false)}
+          />
+          <div
+            className="w-64 h-full bg-white shadow-lg p-4"
+            onClick={(e) => e.stopPropagation()}
           >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
-          </TransitionChild>
-
-          <div className="fixed inset-0 z-40 flex">
-            <TransitionChild
-              as={Fragment}
-              enter="transition ease-in-out duration-300 transform"
-              enterFrom="-translate-x-full"
-              enterTo="translate-x-0"
-              leave="transition ease-in-out duration-300 transform"
-              leaveFrom="translate-x-0"
-              leaveTo="-translate-x-full"
-            >
-              <DialogPanel
-                className="relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pb-12 shadow-xl"
-                style={{
-                  backgroundColor: mode === "dark" ? "rgb(40, 44, 52)" : "",
-                  color: mode === "dark" ? "white" : "",
-                }}
-              >
-                <div className="flex px-4 pb-2 pt-28">
-                  <button
-                    type="button"
-                    className="-m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-600"
-                    onClick={() => setOpen(false)}
-                  >
-                    <div className="flex items-center gap-1">
-                      <span className="">Close menu</span>
-                      <RxCross2 />
-                    </div>
-                  </button>
-                </div>
-                <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-                  <div onClick={() => setOpen(false)} className="flow-root">
-                    <Link
-                      onClick={resetFilter}
-                      to={"/"}
-                      className="font-medium  "
-                      style={{ color: mode === "dark" ? "white" : "" }}
-                    >
-                      <li className="mb-2 list-none ">Home</li>
-                    </Link>
-                  </div>
-                  <ul className="mt-[-25px]">
-                    <div onClick={() => setOpen(false)}>
-                      <Link
-                        to={"/allproducts"}
-                        className=" block font-medium "
-                        style={{ color: mode === "dark" ? "white" : "" }}
-                      >
-                        <li className="mb-2">All Products</li>{" "}
-                      </Link>
-                    </div>
-
-                    <div onClick={() => setOpen(false)}>
-                      <Link
-                        to={"orders"}
-                        className=" font-medium "
-                        style={{ color: mode === "dark" ? "white" : "" }}
-                      >
-                        <li className="mb-2">Orders</li>{" "}
-                      </Link>
-                    </div>
-
-                    <div onClick={() => setOpen(false)}>
-                      <Link to="/wishlist" className="flex items-center gap-2">
-                        <li className="font-semibold">Wishlist </li>
-                        <p className="relative flex items-center">
-                          <AiFillHeart
-                            title="Your Wishlist"
-                            className="text-2xl text-amber-700"
-                          />
-                          <span className="absolute top-[-10px] right-[-10px] bg-amber-500 font-bold text-black rounded-full w-5 h-5 flex justify-center items-center text-xs">
-                            {wishListitems.length}
-                          </span>
-                        </p>
-                      </Link>
-                    </div>
-
-                    <div onClick={() => setOpen(false)}>
-                      <Link
-                        to={"/mobile"}
-                        className=" font-medium "
-                        style={{ color: mode === "dark" ? "white" : "" }}
-                      >
-                        <li className="mb-2 mt-2">Mobile Phone</li>{" "}
-                      </Link>
-                    </div>
-                    <div onClick={() => setOpen(false)}>
-                      <Link
-                        to={"/kids"}
-                        className=" font-medium "
-                        style={{ color: mode === "dark" ? "white" : "" }}
-                      >
-                        <li className="mb-2">Kids</li>{" "}
-                      </Link>
-                    </div>
-                    <div onClick={() => setOpen(false)}>
-                      <Link
-                        to={"/cloths"}
-                        className=" font-medium "
-                        style={{ color: mode === "dark" ? "white" : "" }}
-                      >
-                        <li className="mb-2">Cloths</li>{" "}
-                      </Link>
-                    </div>
-
-                    
-                    {user?.user?.email === "asadalam4291@gmail.com" ? (
-                      <div onClick={() => setOpen(false)}>
-                        <Link
-                          to={"/dashboard"}
-                          className=" font-medium "
-                          style={{ color: mode === "dark" ? "white" : "" }}
-                        >
-                          <li className="mb-2 text-amber-600">ADMINE</li>{" "}
-                        </Link>
-                      </div>
-                    ) : (
-                      ""
-                    )}
-                    {user ? (
-                      <div onClick={() => setOpen(false)}>
-                        <Link
-                          to={"/"}
-                          onClick={handleLogout}
-                          className=" font-medium "
-                          style={{ color: mode === "dark" ? "yellow" : "" }}
-                        >
-                          <li className="mb-2">Logout</li>{" "}
-                        </Link>
-                      </div>
-                    ) : (
-                      <div onClick={() => setOpen(false)}>
-                        <Link
-                          to={"/login"}
-                          className=" font-medium  mb-1"
-                          style={{ color: mode === "dark" ? "red" : "" }}
-                        >
-                          <li>Login</li>{" "}
-                        </Link>
-                      </div>
-                    )}
-                  </ul>
-
-                  {/* <div onClick={() => setOpen(false)} className="flow-root">
-                    <Link
-                      onClick={resetFilter}
-                      to={"/allproducts"}
-                      className="-m-2 block p-2 font-medium text-gray-900"
-                      style={{ color: mode === "dark" ? "white" : "" }}
-                    ></Link>
-                  </div> */}
-                  {/* <div onClick={() => setOpen(false)} className="flow-root">
-                    <Link
-                      to={"/orders"}
-                      style={{ color: mode === "dark" ? "white" : "" }}
-                      className="-m-2 block p-2 font-medium text-gray-900"
-                    >
-                      Order
-                    </Link>
-                  </div> */}
-                  {/* <div onClick={() => setOpen(false)} className="flow-root">
-                    <Link to="/wishlist" className="flex items-center gap-2">
-                      Wishlist{" "}
-                      <p className="relative flex items-center">
-                        <AiFillHeart
-                          title="Your Wishlist"
-                          className="text-2xl text-amber-700"
-                        />
-                        <span className="absolute top-[-10px] right-[-10px] bg-amber-500 font-bold text-black rounded-full w-5 h-5 flex justify-center items-center text-xs">
-                          {wishListitems.length}
-                        </span>
-                      </p>
-                    </Link>
-                  </div> */}
-
-                  {/* {user?.user?.email === "asadalam4291@gmail.com" ? (
-                    <div onClick={() => setOpen(false)} className="flow-root">
-                      <Link
-                        to={"/dashboard"}
-                        className="-m-2 block p-2 font-medium text-gray-900"
-                        style={{ color: mode === "dark" ? "white" : "" }}
-                      >
-                        Admin
-                      </Link>
-                    </div>
-                  ) : (
-                    ""
-                  )} */}
-                  {/* {user ? (
-                    <div onClick={() => setOpen(false)} className="flow-root">
-                      <Link
-                        to={"/"}
-                        onClick={handleLogout}
-                        className="-m-2 block p-2 font-medium text-gray-900"
-                        style={{ color: mode === "dark" ? "white" : "" }}
-                      >
-                        Logout
-                      </Link>
-                    </div>
-                  ) : (
-                    <div onClick={() => setOpen(false)} className="flow-root">
-                      <Link
-                        to={"/login"}
-                        className="-m-2 block p-2 font-medium text-gray-900"
-                        style={{ color: mode === "dark" ? "white" : "" }}
-                      >
-                        Login
-                      </Link>
-                    </div>
-                  )} */}
-
-                  <div className="flow-root">
-                    <Link
-                      to={"/"}
-                      className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
-                    >
-                      <div className="flex items-center gap-1">
-                        <img
-                          className="inline-block w-10 h-10 rounded-full"
-                          src="https://up.yimg.com/ib/th?id=OIP.GHGGLYe7gDfZUzF_tElxiQHaHa&pid=Api&rs=1&c=1&qlt=95&w=111&h=111"
-                          alt="Dan_Abromov"
-                        />
-                        <p
-                          className=""
-                          style={{ color: mode === "dark" ? "white" : "" }}
-                        >
-                          {user?.user?.email}
-                        </p>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-
-                <div className="border-t border-gray-200 px-4 py-6">
-                  <a href="#" className="-m-2 flex items-center p-2">
-                    <img
-                      src="img/indiaflag.png"
-                      alt=""
-                      className="block h-auto w-5 flex-shrink-0"
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-semibold">Menu</h2>
+              <X
+                className="cursor-pointer"
+                onClick={() => setMenuOpen(false)}
+              />
+            </div>
+            <ul className="space-y-4">
+              <li className="text-gray-700" onClick={() => setMenuOpen(false)}>
+                <Link to={"/orders"}>Your Orders</Link>
+              </li>
+              <li className="text-gray-700" onClick={() => setMenuOpen(false)}>
+                <Link
+                  onClick={toggleDropdown}
+                  to="/wishlist"
+                  className="flex items-center gap-2"
+                >
+                  Wishlist{" "}
+                  <p className="relative flex items-center">
+                    <AiFillHeart
+                      title="Your Wishlist"
+                      className="text-xl text-amber-700"
                     />
-                    <span
-                      className="ml-3 block text-base font-medium text-gray-900"
-                      style={{ color: mode === "dark" ? "white" : "" }}
-                    >
-                      INDIA
+                    <span className="absolute top-[-8px] right-[-8px] bg-amber-500 font-bold text-black rounded-full w-4 h-4 flex justify-center items-center text-xs">
+                      {wishListitems.length}
                     </span>
-                    <span className="sr-only">, change currency</span>
-                  </a>
-                </div>
-              </DialogPanel>
-            </TransitionChild>
+                  </p>
+                </Link>
+              </li>
+              <li className="text-gray-700" onClick={() => setMenuOpen(false)}>
+                <Link to={"/wishlist"}>Lorem</Link>
+              </li>
+              <li className="text-gray-700" onClick={() => setMenuOpen(false)}>
+                <Link to={"/wishlist"}>Lorem</Link>
+              </li>
+              <li className="text-gray-700" onClick={() => setMenuOpen(false)}>
+                Account Settings
+              </li>
+              {user?.user?.email === "asadalam4291@gmail.com" ? (
+                <li
+                  className="text-gray-700"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Admine
+                </li>
+              ) : (
+                ""
+              )}
+              {user ? (
+                <li
+                  className="p-2 hover:bg-gray-400 relative flex items-center gap-2"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <button
+                    onClick={handleLogout}
+                    className="flex items-center gap-1"
+                  >
+                    Logout <MdLogout title="Logout" className="" />
+                  </button>
+                </li>
+              ) : (
+                <li onClick={() => setMenuOpen(false)}>
+                  {" "}
+                  <button className="flex items-center gap-1">
+                    <Link to={"/login"}>Login</Link>
+                  </button>
+                </li>
+              )}
+            </ul>
           </div>
-        </Dialog>
-      </Transition>
+        </div>
+      )}
+
+      {/* Search Bar */}
+      <div
+        className=" sm:hidden fixed top-0 left-0 w-full border-b shadow-md bg-white px-4 py-2"
+        style={{
+          backgroundColor: mode === "dark" ? "#374151" : "",
+          color: mode === "dark" ? "white" : "",
+        }}
+      >
+        <input
+          type="text"
+          value={searchkey}
+          onChange={(e) => setSearchkey(e.target.value)}
+          placeholder="Search a product"
+          className="w-full p-2 rounded-md border outline-none border-gray-300 "
+          style={{
+            color: mode === "dark" ? "white" : "",
+          }}
+        />
+        {/* Theme Toggle */}
+        <button
+          onClick={toggleMode}
+          className="fixed top-[8.5px] right-1 z-50 text-xl p-[10px] rounded-md bg-amber-600 "
+        >
+          {mode === "dark" ? <BsFillCloudSunFill /> : <FiSun />}
+        </button>
+      </div>
+
+      {/* Spacer for search bar */}
+      <div className="h-[58px] sm:hidden" />
+
+      {/* Horizontal Scroll Menu - visible only on small screens */}
+      <div
+        className="sm:hidden overflow-x-auto whitespace-nowrap flex items-center gap-4 px-4 py-2  border-b"
+        style={{
+          backgroundColor: mode === "dark" ? "#374151" : "white",
+          color: mode === "dark" ? "white" : "",
+        }}
+      >
+        <div className="flex flex-col items-center text-xs">
+          <Link to={"/kids"}>
+            <img
+              src="https://cdn1.vectorstock.com/i/1000x1000/24/70/of-shopping-vector-23182470.jpg"
+              alt="Prime"
+              className="w-10 h-8 rounded-sm object-cover object-right "
+            />
+            <span>Kids</span>
+          </Link>
+        </div>
+        <div className="flex flex-col items-center text-xs">
+          <Link to={"/mobile"}>
+            <img
+              src="https://tse1.mm.bing.net/th?id=OIP.kiGkC1mRT0mXLso5irnYhQHaHa&pid=Api&P=0&h=180"
+              alt="Mobiles"
+              className="w-10 h-8 rounded-sm object-cover "
+            />
+            <span>Mobile</span>
+          </Link>
+        </div>
+        <div className=" text-xs">
+          <Link to={"/cloths"} className="flex flex-col items-center">
+            <img
+              src="https://images.unsplash.com/photo-1582719188393-bb71ca45dbb9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEyMDd9"
+              alt="Cloths"
+              className="w-10 h-8 rounded-sm object-cover "
+            />
+            <span>Cloths</span>
+          </Link>
+        </div>
+        <div className=" text-xs">
+          <Link to={"/homekitchen"} className="flex flex-col items-center">
+            <img
+              src="https://tse4.mm.bing.net/th?id=OIP.VvmxgBX8pTBnN6zZKDUpxwHaE8&pid=Api&P=0&h=180"
+              alt="Deals"
+              className="w-10 h-8 rounded-sm object-cover "
+            />
+            <span>Home&Kitchen</span>
+          </Link>
+        </div>
+        <div className="flex flex-col items-center text-xs">
+          <img
+            src="https://picsum.photos/100"
+            alt="MX Player"
+            className="w-10 h-8 rounded-sm object-cover "
+          />
+          <span>Lorem</span>
+        </div>
+        <div className="flex flex-col items-center text-xs">
+          <img
+            src="https://picsum.photos/10"
+            alt="Lorem"
+            className="w-10 h-8 rounded-sm object-cover "
+          />
+          <span>Lorem</span>
+        </div>
+        <div className="flex flex-col items-center text-xs">
+          <img
+            src="https://picsum.photos/11"
+            alt="Lorem"
+            className="w-10 h-8 rounded-sm object-cover "
+          />
+          <span>Lorem</span>
+        </div>
+        <div className="flex flex-col items-center text-xs">
+          <img
+            src="https://picsum.photos/12"
+            alt="Lorem"
+            className="w-10 h-8 rounded-sm object-cover "
+          />
+          <span>Lorem</span>
+        </div>
+        <div className="flex flex-col items-center text-xs">
+          <img
+            src="https://picsum.photos/100"
+            alt="Lorem"
+            className="w-10 h-8 rounded-sm object-cover "
+          />
+          <span>Lorem</span>
+        </div>
+        <div className="flex flex-col items-center text-xs">
+          <img
+            src="https://picsum.photos/100"
+            alt="Lorem"
+            className="w-10 h-8 rounded-sm object-cover "
+          />
+          <span>Lorem</span>
+        </div>
+        {/* Add more items as needed */}
+      </div>
+
+      {/* Bottom Navbar */}
+      <div
+        className={`lg:hidden fixed bottom-[-3px] left-0 w-full z-40  border-t shadow-md transition-transform duration-300 ${
+          showNavbar ? "translate-y-0" : "translate-y-full"
+        }`}
+        style={{ backgroundColor: mode === "dark" ? "#374151" : "white" }}
+      >
+        <div className="flex justify-between items-center px-6 py-2">
+          <div className="flex flex-col items-center text-xs text-gray-700">
+            <Link to={"/"} style={{ color: mode === "dark" ? "white" : "" }}>
+              <Home className="h-6 w-6" />
+              <span>Home</span>
+            </Link>
+          </div>
+          <div className="flex flex-col items-center text-xs text-gray-700">
+            <Link style={{ color: mode === "dark" ? "white" : "" }}>
+              <User className="h-6 w-6" />
+              <span>You</span>
+            </Link>
+          </div>
+          <div className="flex flex-col items-center text-xs text-gray-700">
+            <Link style={{ color: mode === "dark" ? "white" : "" }}>
+              <Layers className="h-6 w-6" />
+              <span>More</span>
+            </Link>
+          </div>
+          <div className="flex flex-col items-center text-xs text-gray-700">
+            {/* <Link to={"/cart"}>
+              <ShoppingCart className="h-6 w-6" />
+              <span>Cart</span>
+            </Link> */}
+
+            <Link
+              to="/cart"
+              className="relative flex items-center space-x-1"
+              style={{ color: mode === "dark" ? "white" : "" }}
+            >
+              <span className="font-bold text-sm">
+                <ShoppingCart className="h-6 w-6" />
+              </span>
+              <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs rounded-full px-1">
+                {cartItems.length}
+              </span>
+            </Link>
+          </div>
+          <div
+            className="flex flex-col items-center text-xs text-gray-700 cursor-pointer"
+            onClick={() => setMenuOpen(true)}
+          >
+            <Link style={{ color: mode === "dark" ? "white" : "" }}>
+              <Menu className="h-6 w-6" />
+              <span>Menu</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* =========================={ D E S K T O P N A V}==================================== */}
 
       {/* desktop  */}
-      <header className="bg-[#131921] text-white w-full shadow-md">
+      <header className="hidden md:block bg-[#131921] text-white w-full shadow-md">
         {/* Main Navbar */}
         <div className="flex items-center justify-between px-4 lg:px-8 py-2">
           {/* Left: Logo and Location */}
@@ -390,7 +428,7 @@ function Navbar() {
               to="/"
               className="text-yellow-400 font-bold text-2xl"
             >
-              Amazon
+              Shopfinity
             </Link>
             <div className="hidden md:flex flex-col leading-tight text-sm">
               <div>{location}</div>
@@ -564,6 +602,7 @@ function Navbar() {
                     ) : (
                       ""
                     )}
+
                     <li
                       onClick={handleLogout}
                       className="p-2 hover:bg-gray-400 relative flex items-center gap-2"
@@ -586,6 +625,7 @@ function Navbar() {
               </span>
             </Link>
           )}
+
           <Link to={"/"} onClick={resetFilter}>
             {" "}
             <span className="text-amber-500 font-bold hover:text-green-500">

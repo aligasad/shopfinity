@@ -89,7 +89,13 @@ function ProductCard() {
 
         <div className="flex flex-wrap -m-4">
           {product
-            .filter((item) => item.title.toLowerCase().includes(searchkey.trim().toLowerCase()))
+            .filter((item) =>
+              item.title
+                .toLowerCase()
+                .includes(searchkey.toLowerCase().trim().replace(/\s+/g, " ")) || item.type
+                .toLowerCase()
+                .includes(searchkey.toLowerCase().trim().replace(/\s+/g, " "))
+            )
             .filter((item) =>
               item.category
                 .replace(/\s+/g, "")
@@ -109,82 +115,155 @@ function ProductCard() {
                 date,
               } = item;
               return (
+                // <div
+                //   key={index}
+                //   className="p-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 drop-shadow-lg"
+                // >
+                //   <div
+                //     className="h-full border border-gray-300 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl bg-white dark:bg-[#232F3E]"
+                //     style={{
+                //       backgroundColor: mode === "dark" ? "#232F3E" : "#FFFFFF",
+                //       color: mode === "dark" ? "#FFFFFF" : "#000000",
+                //     }}
+                //   >
+                //     <div
+                //       onClick={() =>
+                //         (window.location.href = `/productinfo/${id}`)
+                //       }
+                //       className="flex justify-center items-center p-4"
+                //     >
+                //       <img
+                //         className="h-48 object-contain transition-transform rounded-md duration-300 
+                //         hover:scale-110 md:hover:scale-135 cursor-pointer"
+                //         src={imageUrl}
+                //         alt="product"
+                //       />
+                //     </div>
+
+                //     <div className="p-4 border-t border-gray-200 dark:border-gray-600">
+                //       <h1
+                //         className="text-lg font-bold text-gray-800 dark:text-amber-600"
+                //         style={{ color: mode === "dark" ? "#DC143C" : "" }}
+                //       >
+                //         {title.slice(0, 20)}...
+                //       </h1>
+                //       <p
+                //         className="text-gray-500 text-sm"
+                //         style={{ color: mode === "dark" ? "white" : "" }}
+                //       >
+                //         {category}
+                //       </p>
+                //       <div className="flex items-baseline gap-2 mb-2">
+                //         <p
+                //           className="text-base font-bold text-red-600 mt-1"
+                //           style={{ color: mode === "dark" ? "#FFD814" : "" }}
+                //         >
+                //           ₹{calcOffer(Number(price))}
+                //         </p>
+                //         <p
+                //           className="text-sm font-semibold text-gray-500 line-through"
+                //           style={{ color: mode === "dark" ? "white" : "" }}
+                //         >
+                //           ₹{price}
+                //         </p>
+                //       </div>
+
+                //       <div className="flex items-center justify-between mt-4">
+                //         <button
+                //           onClick={() => addCart(item)}
+                //           className="flex-1 py-2 mr-2 text-sm font-semibold rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 transition duration-300 cursor-pointer"
+                //           style={{
+                //             backgroundColor: mode === "dark" ? "#DC143C" : "",
+                //             color: mode === "dark" ? "black" : "",
+                //           }}
+                //         >
+                //           Add to Cart
+                //         </button>
+
+                //         {/* Wishlist Button */}
+                //         <button
+                //           onClick={() => addWishlist(item)}
+                //           className="p-2 rounded-full bg-gray-100 hover:bg-green-200 grid place-items-center dark:bg-gray-700 dark:hover:bg-green-600 transition cursor-pointer"
+                //         >
+                //           <FaHeart className="text-xl text-amber-400 hover:text-red-600" />
+                //         </button>
+                //       </div>
+                //     </div>
+                //   </div>
+                // </div>
+
                 <div
-                  key={index}
-                  className="p-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 drop-shadow-lg"
-                >
-                  <div
-                    className="h-full border border-gray-300 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl bg-white dark:bg-[#232F3E]"
-                    style={{
-                      backgroundColor: mode === "dark" ? "#232F3E" : "#FFFFFF",
-                      color: mode === "dark" ? "#FFFFFF" : "#000000",
-                    }}
-                  >
-                    <div
-                      onClick={() =>
-                        (window.location.href = `/productinfo/${id}`)
-                      }
-                      className="flex justify-center items-center p-4"
-                    >
-                      <img
-                        className="h-48 object-contain transition-transform rounded-md duration-300 
-                        hover:scale-110 md:hover:scale-135 cursor-pointer"
-                        src={imageUrl}
-                        alt="product"
-                      />
-                    </div>
+      key={index}
+      className="w-1/2 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-2"
+    >
+      <div
+        className="h-full border border-gray-300 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl bg-white dark:bg-[#232F3E]"
+        style={{
+          backgroundColor: mode === "dark" ? "#232F3E" : "#FFFFFF",
+          color: mode === "dark" ? "#FFFFFF" : "#000000",
+        }}
+      >
+        <div
+          onClick={() => (window.location.href = `/productinfo/${id}`)}
+          className="flex justify-center items-center p-4"
+        >
+          <img
+            className="h-36 sm:h-44 object-contain transition-transform rounded-md duration-300 hover:scale-110 cursor-pointer"
+            src={imageUrl}
+            alt="product"
+          />
+        </div>
 
-                    <div className="p-4 border-t border-gray-200 dark:border-gray-600">
-                      <h1
-                        className="text-lg font-bold text-gray-800 dark:text-amber-600"
-                        style={{ color: mode === "dark" ? "#DC143C" : "" }}
-                      >
-                        {title.slice(0, 20)}...
-                      </h1>
-                      <p
-                        className="text-gray-500 text-sm"
-                        style={{ color: mode === "dark" ? "white" : "" }}
-                      >
-                        {category}
-                      </p>
-                      <div className="flex items-baseline gap-2 mb-2">
-                        <p
-                          className="text-base font-bold text-red-600 mt-1"
-                          style={{ color: mode === "dark" ? "#FFD814" : "" }}
-                        >
-                          ₹{calcOffer(Number(price))}
-                        </p>
-                        <p
-                          className="text-sm font-semibold text-gray-500 line-through"
-                          style={{ color: mode === "dark" ? "white" : "" }}
-                        >
-                          ₹{price}
-                        </p>
-                      </div>
+        <div className="p-4 border-t border-gray-200 dark:border-gray-600">
+          <h1
+            className="text-sm sm:text-base font-bold text-gray-800 dark:text-amber-600"
+            style={{ color: mode === "dark" ? "#DC143C" : "" }}
+          >
+            {title.slice(0, 20)}...
+          </h1>
+          <p
+            className="text-xs sm:text-sm text-gray-500"
+            style={{ color: mode === "dark" ? "white" : "" }}
+          >
+            {category}
+          </p>
+          <div className="flex items-baseline gap-2 mb-2">
+            <p
+              className="text-base font-bold text-red-600 mt-1"
+              style={{ color: mode === "dark" ? "#FFD814" : "" }}
+            >
+              ₹{calcOffer(Number(price))}
+            </p>
+            <p
+              className="text-sm font-semibold text-gray-500 line-through"
+              style={{ color: mode === "dark" ? "white" : "" }}
+            >
+              ₹{price}
+            </p>
+          </div>
 
-                      <div className="flex items-center justify-between mt-4">
-                        <button
-                          onClick={() => addCart(item)}
-                          className="flex-1 py-2 mr-2 text-sm font-semibold rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 transition duration-300 cursor-pointer"
-                          style={{
-                            backgroundColor: mode === "dark" ? "#DC143C" : "",
-                            color: mode === "dark" ? "black" : "",
-                          }}
-                        >
-                          Add to Cart
-                        </button>
+          <div className="flex items-center justify-between mt-4">
+            <button
+              onClick={() => addCart(item)}
+              className="flex-1 py-2 mr-2 text-sm font-semibold rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 transition duration-300 cursor-pointer"
+              style={{
+                backgroundColor: mode === "dark" ? "#DC143C" : "",
+                color: mode === "dark" ? "black" : "",
+              }}
+            >
+              Add to Cart
+            </button>
 
-                        {/* Wishlist Button */}
-                        <button
-                          onClick={() => addWishlist(item)}
-                          className="p-2 rounded-full bg-gray-100 hover:bg-green-200 grid place-items-center dark:bg-gray-700 dark:hover:bg-green-600 transition cursor-pointer"
-                        >
-                          <FaHeart className="text-xl text-amber-400 hover:text-red-600" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            <button
+              onClick={() => addWishlist(item)}
+              className="p-2 rounded-full bg-gray-100 hover:bg-green-200 grid place-items-center dark:bg-gray-700 dark:hover:bg-green-600 transition cursor-pointer"
+            >
+              <FaHeart className="text-xl text-amber-400 hover:text-red-600" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
               );
             })}
         </div>
