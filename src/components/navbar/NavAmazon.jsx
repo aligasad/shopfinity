@@ -5,8 +5,8 @@ import { IoSettings } from "react-icons/io5";
 import { MdLogout } from "react-icons/md";
 import { FaAngleDown } from "react-icons/fa";
 import { FiSun } from "react-icons/fi";
-import { Link, Links, useNavigate } from "react-router-dom";
 import { Home, User, Layers, ShoppingCart, Menu, X } from "lucide-react";
+import { useNavigate, Link } from "react-router-dom";
 import {
   Dialog,
   DialogPanel,
@@ -119,34 +119,37 @@ function Navbar() {
   // }, [menuOpen]);
 
   return (
-    <div className="bg-white sticky top-0 z-50 ">
+    <div className="bg-white sticky top-0 z-50">
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="fixed top-0 right-0 z-50 h-full flex">
+        <div className="fixed top-0 right-0 z-50 h-full flex items-end ">
           <div
-            className="flex-grow bg-black bg-opacity-40"
+            className="flex-grow bg-black bg-opacity-40 "
             onClick={() => setMenuOpen(false)}
           />
           <div
-            className="w-64 h-full bg-white shadow-lg p-4"
+            className="w-64 h-[50%]  bg-white shadow-lg p-4 py-5 mb-20 flex flex-col justify-between"
             onClick={(e) => e.stopPropagation()}
+            style={{
+              backgroundColor: mode === "dark" ? "#374151" : "",
+              color: mode === "dark" ? "white" : "",
+            }}
           >
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold">Menu</h2>
-              <X
-                className="cursor-pointer"
-                onClick={() => setMenuOpen(false)}
-              />
-            </div>
             <ul className="space-y-4">
               <li className="text-gray-700" onClick={() => setMenuOpen(false)}>
-                <Link to={"/orders"}>Your Orders</Link>
+                <Link
+                  to={"/orders"}
+                  style={{ color: mode === "dark" ? "white" : "" }}
+                >
+                  Your Orders
+                </Link>
               </li>
               <li className="text-gray-700" onClick={() => setMenuOpen(false)}>
                 <Link
                   onClick={toggleDropdown}
                   to="/wishlist"
                   className="flex items-center gap-2"
+                  style={{ color: mode === "dark" ? "white" : "" }}
                 >
                   Wishlist{" "}
                   <p className="relative flex items-center">
@@ -160,28 +163,32 @@ function Navbar() {
                   </p>
                 </Link>
               </li>
-              <li className="text-gray-700" onClick={() => setMenuOpen(false)}>
-                <Link to={"/wishlist"}>Lorem</Link>
-              </li>
-              <li className="text-gray-700" onClick={() => setMenuOpen(false)}>
-                <Link to={"/wishlist"}>Lorem</Link>
-              </li>
-              <li className="text-gray-700" onClick={() => setMenuOpen(false)}>
-                Account Settings
+              <li
+                className="text-gray-700"
+                onClick={() => setMenuOpen(false)}
+                style={{ color: mode === "dark" ? "white" : "" }}
+              >
+                Account Settings X
               </li>
               {user?.user?.email === "asadalam4291@gmail.com" ? (
                 <li
                   className="text-gray-700"
                   onClick={() => setMenuOpen(false)}
                 >
-                  Admine
+                  <Link
+                    to={"/dashboard"}
+                    className="font-bold"
+                    style={{ color: mode === "dark" ? "red" : "" }}
+                  >
+                    ADMINE
+                  </Link>
                 </li>
               ) : (
                 ""
               )}
               {user ? (
                 <li
-                  className="p-2 hover:bg-gray-400 relative flex items-center gap-2"
+                  className=" hover:bg-gray-400 relative flex items-center gap-2"
                   onClick={() => setMenuOpen(false)}
                 >
                   <button
@@ -200,6 +207,13 @@ function Navbar() {
                 </li>
               )}
             </ul>
+            <div className="flex justify-between items-center mt-4">
+              <h2 className="text-lg font-semibold">Menu</h2>
+              <X
+                className="cursor-pointer"
+                onClick={() => setMenuOpen(false)}
+              />
+            </div>
           </div>
         </div>
       )}
@@ -247,7 +261,7 @@ function Navbar() {
             <img
               src="https://cdn1.vectorstock.com/i/1000x1000/24/70/of-shopping-vector-23182470.jpg"
               alt="Prime"
-              className="w-10 h-8 rounded-sm object-cover object-right "
+              className="w-10 h-8 rounded-sm object-cover object-ryight "
             />
             <span>Kids</span>
           </Link>
@@ -283,20 +297,25 @@ function Navbar() {
           </Link>
         </div>
         <div className="flex flex-col items-center text-xs">
-          <img
-            src="https://picsum.photos/100"
-            alt="MX Player"
-            className="w-10 h-8 rounded-sm object-cover "
-          />
-          <span>Lorem</span>
+          <Link to={"/shoes"}>
+            <img
+              src="https://ae01.alicdn.com/kf/HTB1Qg4XruOSBuNjy0Fdq6zDnVXaE/2018-Luxury-Brand-Men-s-Casual-Breathable-Shoes-for-Male-Winter-Spring-Male-Shoes-Men-Comfortable.jpg"
+              alt="Shoes"
+              className="w-10 h-8 rounded-sm object-cover "
+            />
+            <span>Shoes</span>
+          </Link>
         </div>
+
         <div className="flex flex-col items-center text-xs">
-          <img
-            src="https://picsum.photos/10"
-            alt="Lorem"
-            className="w-10 h-8 rounded-sm object-cover "
-          />
-          <span>Lorem</span>
+          <Link to={'/electronics'}>
+            <img
+              src="https://tse1.mm.bing.net/th?id=OIP.SyB8lZTvZUxvm6J0HwrhigHaES&pid=Api&P=0&h=180"
+              alt="Lorem"
+              className="w-10 h-8 rounded-sm object-cover "
+            />
+            <span>Electronics</span>
+          </Link>
         </div>
         <div className="flex flex-col items-center text-xs">
           <img
@@ -335,26 +354,26 @@ function Navbar() {
 
       {/* Bottom Navbar */}
       <div
-        className={`lg:hidden fixed bottom-[-3px] left-0 w-full z-40  border-t shadow-md transition-transform duration-300 ${
+        className={`lg:hidden fixed bottom-[-60px] left-0 w-full z-40  border-t shadow-md transition-transform duration-300 ${
           showNavbar ? "translate-y-0" : "translate-y-full"
         }`}
         style={{ backgroundColor: mode === "dark" ? "#374151" : "white" }}
       >
-        <div className="flex justify-between items-center px-6 py-2">
-          <div className="flex flex-col items-center text-xs text-gray-700">
-            <Link to={"/"} style={{ color: mode === "dark" ? "white" : "" }}>
+        <div className="flex justify-between items-start h-30 mt-2 px-6 py-2">
+          <div className=" text-xs text-gray-700">
+            <Link className="flex flex-col items-center" to={"/"} style={{ color: mode === "dark" ? "white" : "" }}>
               <Home className="h-6 w-6" />
               <span>Home</span>
             </Link>
           </div>
-          <div className="flex flex-col items-center text-xs text-gray-700">
-            <Link style={{ color: mode === "dark" ? "white" : "" }}>
+          <div className=" text-xs text-gray-700">
+            <Link className="flex flex-col items-center" style={{ color: mode === "dark" ? "white" : "" }}>
               <User className="h-6 w-6" />
               <span>You</span>
             </Link>
           </div>
-          <div className="flex flex-col items-center text-xs text-gray-700">
-            <Link style={{ color: mode === "dark" ? "white" : "" }}>
+          <div className=" text-xs text-gray-700">
+            <Link className="flex flex-col items-center" style={{ color: mode === "dark" ? "white" : "" }}>
               <Layers className="h-6 w-6" />
               <span>More</span>
             </Link>
@@ -370,8 +389,9 @@ function Navbar() {
               className="relative flex items-center space-x-1"
               style={{ color: mode === "dark" ? "white" : "" }}
             >
-              <span className="font-bold text-sm">
+              <span className="font-bold text-sm flex flex-col items-center">
                 <ShoppingCart className="h-6 w-6" />
+                <span className="font-semibold">Cart</span>
               </span>
               <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs rounded-full px-1">
                 {cartItems.length}
@@ -382,7 +402,7 @@ function Navbar() {
             className="flex flex-col items-center text-xs text-gray-700 cursor-pointer"
             onClick={() => setMenuOpen(true)}
           >
-            <Link style={{ color: mode === "dark" ? "white" : "" }}>
+            <Link className="flex flex-col items-center" style={{ color: mode === "dark" ? "white" : "" }}>
               <Menu className="h-6 w-6" />
               <span>Menu</span>
             </Link>
@@ -640,27 +660,27 @@ function Navbar() {
 
           <Link to={"/mobile"} onClick={resetFilter}>
             {" "}
-            <span>Mobile</span>{" "}
+            <span>Mobiles</span>{" "}
           </Link>
           <Link to={"/cloths"} onClick={resetFilter}>
             {" "}
             <span>Cloths</span>{" "}
           </Link>
-          <Link to={"/homekitchen"}>
+          <Link to={"/homekitchen"} onClick={resetFilter}>
             {" "}
             <span>Home & Kitchen</span>{" "}
           </Link>
-          <Link to={"https://www.amazon.in/deals?ref_=nav_cs_gb"}>
+          <Link to={"/electronics"}onClick={resetFilter}>
             {" "}
-            <span>Today's Deals</span>{" "}
+            <span onClick={resetFilter}>Electronics</span>{" "}
           </Link>
           <Link
             to={
-              "https://www.amazon.in/mobile-phones/b/?ie=UTF8&node=1389401031&ref_=nav_cs_mobiles"
+              "Shoes"
             }
           >
             {" "}
-            <span>Mobiles</span>{" "}
+            <span>Shoes</span>{" "}
           </Link>
           <Link
             to={

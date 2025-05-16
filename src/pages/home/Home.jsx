@@ -10,6 +10,7 @@ import { addToCart, deleteFromCart } from "../../redux/CartSlice";
 import { Link } from "react-router-dom";
 import { useData } from "../../context/data/MyState";
 import { motion } from "framer-motion";
+import TestimonialAnim from "../../components/testimonial/TestimonialAnim";
 
 function Home() {
   const { resetFilter } = useData();
@@ -52,7 +53,8 @@ function Home() {
       </div>
 
       <Track />
-      <Testimonial />
+      {/* <Testimonial /> */}
+      <TestimonialAnim />
     </>
   );
 }
