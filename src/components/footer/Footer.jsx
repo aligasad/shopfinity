@@ -32,7 +32,7 @@ export default function Footer() {
               </li>
               <li>
                 <a className="hover:underline cursor-pointer">
-                  Amazon Devices
+                  Shopfinity Devices
                 </a>
               </li>
             </nav>
@@ -60,7 +60,7 @@ export default function Footer() {
             <nav className="list-none space-y-2">
               <li>
                 <a className="hover:underline cursor-pointer">
-                  Sell on Amazon
+                  Sell on Shopfinity
                 </a>
               </li>
               <li>
@@ -75,7 +75,7 @@ export default function Footer() {
               </li>
               <li>
                 <a className="hover:underline cursor-pointer">
-                  Fulfilment by Amazon
+                  Fulfilment by Shopfinity
                 </a>
               </li>
             </nav>
@@ -124,7 +124,7 @@ export default function Footer() {
             <span className="text-gray-400 ">{address}</span>
           </Link>
           <p className="text-sm text-gray-400">
-            © 2025 asadalam.info — All rights reserved.
+            © 2025 <a href="https://asadalam.info/">asadalam.info</a> — All rights reserved.
           </p>
           <span className="inline-flex justify-center sm:justify-start mt-2 sm:mt-0 space-x-3">
             <a className="text-gray-400 hover:text-white cursor-pointer">

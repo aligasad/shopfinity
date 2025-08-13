@@ -176,7 +176,7 @@ function ProductCard() {
                       <div className="flex items-center justify-between mt-4">
                         <button
                           onClick={() => addCart(item)}
-                          className="px-3 py-[6px] sm:py-2 mr-2 text-[12px] md:text-sm md:flex-1 font-semibold rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 transition duration-300 cursor-pointer"
+                          className="px-3 py-[6px] sm:py-2 mr-2 text-[12px] md:text-sm md:flex-1 font-semibold rounded-lg  bg-orange-600 hover:bg-orange-700 text-black hover:text-white transition duration-300 cursor-pointer"
                         >
                           Add to Cart
                         </button>
@@ -185,7 +185,7 @@ function ProductCard() {
                           onClick={() => addWishlist(item)}
                           className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 grid place-items-center dark:bg-gray-700 dark:hover:bg-gray-600 transition cursor-pointer"
                         >
-                          <FaHeart className="text-base sm:text-xl text-amber-400" />
+                          <FaHeart className="text-base sm:text-xl text-white hover:text-orange-600" />
                         </button>
                       </div>
                     </div>

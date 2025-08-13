@@ -12,6 +12,7 @@ export default defineConfig({
   server: {
     // Dev fallback
     historyApiFallback: true,
+    open: true,
   },
   // Most importantly:
   resolve: {

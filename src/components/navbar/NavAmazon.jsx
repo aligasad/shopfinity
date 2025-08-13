@@ -446,7 +446,7 @@ function Navbar() {
             <Link
               onClick={resetFilter}
               to="/"
-              className="text-yellow-400 font-bold text-2xl"
+              className="text-orange-600 font-bold text-2xl"
             >
               Shopfinity
             </Link>
@@ -497,7 +497,7 @@ function Navbar() {
             />
             <button
               onClick={resetFilter}
-              className="bg-yellow-400 px-4 rounded-r-md text-black"
+              className="bg-orange-500 hover:bg-orange-600 cursor-pointer px-4 rounded-r-md text-black"
             >
               Reset
             </button>
@@ -648,7 +648,7 @@ function Navbar() {
 
           <Link to={"/"} onClick={resetFilter}>
             {" "}
-            <span className="text-amber-500 font-bold hover:text-green-500">
+            <span className="text-orange-500 font-bold hover:text-green-500">
               Home
             </span>{" "}
           </Link>
@@ -676,7 +676,7 @@ function Navbar() {
           </Link>
           <Link
             to={
-              "Shoes"
+              "menshoes"
             }
           >
             {" "}

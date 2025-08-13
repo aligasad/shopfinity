@@ -53,8 +53,8 @@ function Home() {
       </div>
 
       <Track />
-      {/* <Testimonial /> */}
-      <TestimonialAnim />
+      <Testimonial />
+      {/* <TestimonialAnim /> */}
     </>
   );
 }
